@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="MityaginaNP.UI.UserControl.UCPageBtn"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
+             mc:Ignorable="d" DataContextChanged="UserControl_DataContextChanged">
+    <Button x:Name="btnPage" Click="btnPage_Click" Style="{StaticResource pagingButton}" />
+</UserControl>

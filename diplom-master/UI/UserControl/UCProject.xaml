@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="MityaginaNP.UI.UserControl.UCProject"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.IsSharedSizeScope="True">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Vertical" Name="StackText">
+                <TextBlock Text="{Binding ProjectName}" FontSize="20" />
+                <TextBlock Text="{Binding ProjectDescription}" />
+                <TextBlock Text="{Binding ProjectStartDate}" />
+                <TextBlock Text="{Binding ProjectEndDate}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Width="{Binding ElementName=StackText}">
+                <Button Name="ProjectTask" Click="ProjectTask_Click" Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="ListStatus" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Name="GanttChart" Click="GanttChart_Click" Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="AccountBox" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Name="ProjectChange" Click="ProjectChange_Click" Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="ClipboardEdit" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

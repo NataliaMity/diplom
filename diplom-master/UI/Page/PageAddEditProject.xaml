@@ -1,0 +1,31 @@
+﻿<Page x:Class="MityaginaNP.UI.Page.PageAddEditProject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MityaginaNP.UI.Page"
+      mc:Ignorable="d" >
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Orientation="Vertical" >
+            <TextBlock Text="Название проекта" />
+            <TextBox x:Name="txtProjectName" Text="{Binding ProjectName}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Содержание проекта" />
+            <TextBox x:Name="txtProjectDescription" Text="{Binding ProjectDescription}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Заказчик" />
+            <ComboBox x:Name="cbClient" SelectedItem="{Binding Client}" DisplayMemberPath="ClientName" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Дата начала проекта" />
+            <DatePicker x:Name="DateStart" Text="{Binding ProjectStartDate}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Дата окончания проекта" />
+            <DatePicker x:Name="DateEnd" Text="{Binding ProjectEndDate}" />
+        </StackPanel>
+        <Button x:Name="btnSaveProject" Content="Сохранить" Click="btnSaveProject_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
+    </StackPanel>
+</Page>

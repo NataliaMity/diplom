@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="MityaginaNP.UI.UserControl.UCStaff"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MityaginaNP.UI.UserControl" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding UserName}" Width="200" />
+                <TextBlock Text="чет еще" Width="200" />
+            </StackPanel>
+            <Button x:Name="btnMore" Style="{StaticResource ucButton}">
+                <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource ucButtonIcon}"/>
+            </Button>
+        </StackPanel>    
+    </Grid>
+</UserControl>

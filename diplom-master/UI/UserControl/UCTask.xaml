@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MityaginaNP.UI.UserControl.UCTask"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Grid Grid.IsSharedSizeScope="True">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Задание:" />
+                <TextBlock Width="20" Text="{Binding TaskID}" />
+            </StackPanel>
+        
+        <StackPanel Orientation="Vertical">
+                <TextBlock Text="Заголовок:" />
+                <TextBlock Width="auto" Text="{Binding TaskText}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Дата выдачи:" />
+                <TextBlock Width="70" Height="20" Text="{Binding TaskStart}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Дата сдачи:" />
+                <TextBlock Width="70" Height="20" Text="{Binding TaskDeadLine}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Проект:" />
+                <TextBlock Width="70" Height="20" Text="{Binding ProjectID}" Name="txtProjNum" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <Button Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="Check" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Style="{StaticResource ucButton}">
+                    <Icon:PackIconMaterial Kind="Download" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+                <Button Style="{StaticResource ucButton}" Name="btnChange" Click="btnChange_Click">
+                    <Icon:PackIconMaterial Kind="Pencil" Style="{StaticResource ucButtonIcon}" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

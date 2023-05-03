@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="MityaginaNP.UI.UserControl.UCClient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <TextBlock><Run Text="Название организации:" /> <Run Text="{Binding ClientName}" /></TextBlock>
+            <TextBlock><Run Text="Глава организации:" /> <Run Text="{Binding ClientDirector}"/></TextBlock>
+            <TextBlock Text="{Binding ClientDirectorPost}"/>
+            <TextBlock Text="{Binding ClientMail}"/>
+        </StackPanel>
+        <Button x:Name="btnMore" Click="btnMore_Click" Style="{StaticResource ucButton}">
+            <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource ucButtonIcon}"/>
+        </Button>
+        <Button x:Name="btnEdit" Click="btnEdit_Click" Style="{StaticResource ucButton}">
+            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource ucButtonIcon}"/>
+        </Button>
+    </StackPanel>
+</UserControl>

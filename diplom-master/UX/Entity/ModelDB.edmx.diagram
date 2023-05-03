@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb315aff4c8f4d8b934c248b85a7098d" Name="Diagram1">
+        <EntityTypeShape EntityType="MityaginaNPModel.Client" Width="1.5" PointX="9" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.Department" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.Document" Width="1.5" PointX="13.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.Notification" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.NotificationType" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.Project" Width="1.5" PointX="11.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.Role" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.sysdiagram" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.TaskProject" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.TaskStatu" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MityaginaNPModel.User" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Project_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Task_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_User_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Document_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Notification_NotificationType" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Notification_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Project_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Task_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Task_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_TaskProject_TaskStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="MityaginaNPModel.FK_Notification_TaskProject" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

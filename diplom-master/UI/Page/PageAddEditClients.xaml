@@ -1,0 +1,30 @@
+﻿<Page x:Class="MityaginaNP.UI.Page.PageAddEditClients"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MityaginaNP.UI.Page"
+      mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Наименование организации: " />
+                <TextBox x:Name="txtNameClient" Text="{Binding ClientName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Руководитель организации: " />
+                <TextBox x:Name="txtDirectorClient" Text="{Binding ClientName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Должность руководителя: " />
+                <TextBox x:Name="txtDirectorPostClient" Text="{Binding ClientName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Электронная почта: " />
+                <TextBox x:Name="txtEmailClient" Text="{Binding ClientName}"/>
+            </StackPanel>
+            <Button x:Name="btnSaveClient" Content="Сохранить" Click="btnSaveClient_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
+        </StackPanel>
+    </Grid>
+</Page>
