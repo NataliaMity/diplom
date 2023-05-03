@@ -45,7 +45,7 @@
                                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0" Foreground="#b0b9c6"/>
         </Grid>
 
-        <DataGrid  Background="White" Grid.Row="5" x:Name="DGProjectClient">
+        <DataGrid  Background="White" Grid.Row="5" AutoGenerateColumns="False" CanUserAddRows="False" x:Name="DGProjectClient">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>

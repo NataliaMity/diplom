@@ -42,5 +42,10 @@ namespace MityaginaNP.UI.UserControl
         {
             ClassNavigate.NavigateFrame.Navigate(new PageGanttChart((sender as Button).DataContext as Project));
         }
+
+        private void ProjectDos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

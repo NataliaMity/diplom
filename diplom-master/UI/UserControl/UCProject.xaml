@@ -3,28 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.IsSharedSizeScope="True">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Vertical" Name="StackText">
-                <TextBlock Text="{Binding ProjectName}" FontSize="20" />
-                <TextBlock Text="{Binding ProjectDescription}" />
-                <TextBlock Text="{Binding ProjectStartDate}" />
-                <TextBlock Text="{Binding ProjectEndDate}" />
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Width="600" Name="StackText">
+                <TextBlock FontSize="20"><Run Text="Название проекта:"/> <Run Text="{Binding ProjectName}" /></TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock ><Run Text="Описание проекта:"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap" MaxWidth="500"><Run Text="{Binding ProjectDescription}"/></TextBlock>
+                </StackPanel>
+                <TextBlock><Run Text="Дата начала проекта:"/> <Run Text="{Binding ProjectStartDate}"/></TextBlock>
+                <TextBlock ><Run Text="Дата окончания проекта:"/> <Run Text="{Binding ProjectEndDate}"/></TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Width="{Binding ElementName=StackText}">
-                <Button Name="ProjectTask" Click="ProjectTask_Click" Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="ListStatus" Style="{StaticResource ucButtonIcon}" />
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical" Width="{Binding ElementName=StackText}">
+                <Button Name="ProjectTask" Click="ProjectTask_Click" Margin="10 3" Style="{StaticResource addButton}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Icon:PackIconMaterial Kind="ListStatus" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Задачи" />
+                    </StackPanel>
                 </Button>
-                <Button Name="GanttChart" Click="GanttChart_Click" Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource ucButtonIcon}" />
+                <Button Style="{StaticResource addButton}" Margin="10 3" x:Name="ProjectDocs" Click="ProjectDos_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Документы" />
+                    </StackPanel>
                 </Button>
-                <Button Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource ucButtonIcon}" />
-                </Button>
-                <Button Style="{StaticResource ucButton}">
+                <Button Style="{StaticResource ucButton}" Margin="10 3">
                     <Icon:PackIconMaterial Kind="AccountBox" Style="{StaticResource ucButtonIcon}" />
                 </Button>
-                <Button Name="ProjectChange" Click="ProjectChange_Click" Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="ClipboardEdit" Style="{StaticResource ucButtonIcon}" />
+                <Button Name="ProjectChange" Margin="10 1" Click="ProjectChange_Click" Style="{StaticResource addButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ClipboardEdit" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Редактировать" FontSize="14" />
+                    </StackPanel>
                 </Button>
             </StackPanel>
         </StackPanel>

@@ -37,7 +37,7 @@ namespace MityaginaNP.UI.Page
         {
             if(Visibility == Visibility.Visible)
             {
-                DGProjectClient.ItemsSource = App.DataBase.Projects.ToList().Where(p => p.ClientID == _client.ClientID).ToList();
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList();
                 _countOfItems = 1;
                 int count = DGProjectClient.Items.Count;
                 if (count % _countOfItems == 0)
@@ -45,7 +45,7 @@ namespace MityaginaNP.UI.Page
                 else
                     _numberOfPages = count / _countOfItems + 1;
 
-                DGProjectClient.ItemsSource = App.DataBase.Projects.Take(_countOfItems).ToList();
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList().Take(_countOfItems).ToList();
 
 
                 for (int i = 1; i <= _numberOfPages; i++)
@@ -65,26 +65,32 @@ namespace MityaginaNP.UI.Page
             int _minusPage = _currentPage - 1;
             if (_currentPage > 1)
             {
-                DGProjectClient.ItemsSource = App.DataBase.Projects.Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList().Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
 
             }
             else
             {
-                DGProjectClient.ItemsSource = App.DataBase.Projects.Take(_countOfItems).ToList();
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList().Take(_countOfItems).ToList();
             }
         }
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
         {
-            int _minusPage = _currentPage - 1;
-            DGProjectClient.ItemsSource = App.DataBase.Projects.Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
-            _currentPage--;
+            if (_currentPage > 0)
+            {
+                int _minusPage = _currentPage - 1;
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                _currentPage--;
+            }
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            DGProjectClient.ItemsSource = App.DataBase.Projects.Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
-            _currentPage++;
+            if (_currentPage < _numberOfPages)
+            {
+                DGProjectClient.ItemsSource = App.DataBase.Projects.Where(p => p.ClientID == _client.ClientID).ToList().Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                _currentPage++;
+            }
         }
     }
 }

@@ -8,21 +8,21 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Наименование организации: " />
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <TextBlock Width="300" Text="Наименование организации: " />
                 <TextBox x:Name="txtNameClient" Text="{Binding ClientName}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Руководитель организации: " />
-                <TextBox x:Name="txtDirectorClient" Text="{Binding ClientName}"/>
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <TextBlock Width="300" Text="Руководитель организации: " />
+                <TextBox x:Name="txtDirectorClient" Text="{Binding ClientDirector}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Должность руководителя: " />
-                <TextBox x:Name="txtDirectorPostClient" Text="{Binding ClientName}"/>
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <TextBlock Width="300" Text="Должность руководителя: " />
+                <TextBox x:Name="txtDirectorPostClient" Text="{Binding ClientDirectorPost}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Электронная почта: " />
-                <TextBox x:Name="txtEmailClient" Text="{Binding ClientName}"/>
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <TextBlock Width="300" Text="Электронная почта: " />
+                <TextBox x:Name="txtEmailClient" Text="{Binding ClientMail}"/>
             </StackPanel>
             <Button x:Name="btnSaveClient" Content="Сохранить" Click="btnSaveClient_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
         </StackPanel>

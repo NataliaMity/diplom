@@ -37,7 +37,6 @@ namespace MityaginaNP.UI.Page
             if (Visibility == Visibility.Visible)
             {
                 DGProject.ItemsSource = App.DataBase.Projects.ToList();
-                _countOfItems =1;
                 int count = DGProject.Items.Count;
                 if (count % _countOfItems == 0)
                     _numberOfPages = count / _countOfItems;
@@ -74,15 +73,22 @@ namespace MityaginaNP.UI.Page
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
         {
-            int _minusPage = _currentPage - 1;
-            DGProject.ItemsSource = App.DataBase.Projects.ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
-            _currentPage--;
+            if(_currentPage > 0)
+            {
+                int _minusPage = _currentPage - 1;
+                DGProject.ItemsSource = App.DataBase.Projects.ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                _currentPage--;
+            }
+            
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            DGProject.ItemsSource = App.DataBase.Projects.ToList().Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
-            _currentPage++;
+            if(_currentPage < _numberOfPages)
+            {
+                DGProject.ItemsSource = App.DataBase.Projects.ToList().Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                _currentPage++;
+            }
         }
 
         private void ProjectNow_Click(object sender, RoutedEventArgs e)

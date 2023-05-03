@@ -16,8 +16,6 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <TextBlock Text="Клиенты" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                    HorizontalAlignment="Left" Foreground="#121518" />

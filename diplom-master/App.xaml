@@ -76,7 +76,9 @@
             <Setter Property="Margin" Value="15 2 10 0" />
         </Style>
 
-        <Style x:Key="textboxSearch" TargetType="TextBox">
+           
+
+            <Style x:Key="textboxSearch" TargetType="TextBox">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="BorderThickness" Value="0" />
@@ -246,12 +248,12 @@
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="11" />
-            <Setter Property="Height" Value="30" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Height" Value="35" />
             <Setter Property="Width" Value="500" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Padding" Value="0 1 0 1" />
+            <Setter Property="Padding" Value="2 2 0 0" />
             <Setter Property="Cursor" Value="IBeam" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -341,7 +343,7 @@
             <Setter Property="Margin" Value="5" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Height" Value="30" />
+            <Setter Property="Height" Value="35" />
             <Setter Property="Width" Value="500" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Cursor" Value="Hand" />
@@ -349,7 +351,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Border Background="White" CornerRadius="10" BorderBrush="LightGray" BorderThickness="1">
+                        <Border Background="White" CornerRadius="10" BorderBrush="LightGray" BorderThickness="2">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -372,7 +374,7 @@
                             <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                                 <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                    <Border x:Name="DropDownBorder" BorderThickness="1" CornerRadius="10" BorderBrush="LightGray" Background="White"/>
+                                    <Border x:Name="DropDownBorder" BorderThickness="2" CornerRadius="10" BorderBrush="LightGray" Background="White"/>
                                     <ScrollViewer Margin="4 6 4 6" SnapsToDevicePixels="True" OverridesDefaultStyle="True" Foreground="Black" FontSize="11"/>
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained">
 
@@ -405,7 +407,7 @@
 
         <Style x:Key="tbox_TextPlaceholder" TargetType="TextBox">
             <Setter Property="FontSize" Value="11" />
-            <Setter Property="Height" Value="30" />
+            <Setter Property="Height" Value="35" />
             <Setter Property="Width" Value="500" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
@@ -471,7 +473,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Calendar" >
-                        <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="1">
+                        <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="2">
                             <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
                                 <CalendarItem x:Name="PART_CalendarItem"
                                           Background="White"

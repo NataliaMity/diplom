@@ -5,17 +5,24 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
 
     <StackPanel Orientation="Horizontal">
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Margin="0 5 20 5">
             <TextBlock><Run Text="Название организации:" /> <Run Text="{Binding ClientName}" /></TextBlock>
-            <TextBlock><Run Text="Глава организации:" /> <Run Text="{Binding ClientDirector}"/></TextBlock>
-            <TextBlock Text="{Binding ClientDirectorPost}"/>
-            <TextBlock Text="{Binding ClientMail}"/>
+            <TextBlock><Run Text="Руководитель (должность):" /> <Run Text="{Binding ClientDirector}"/>(<Run Text="{Binding ClientDirectorPost}"/>)</TextBlock>
+            <TextBlock><Run Text="Почта для связи:" /> <Run  Text="{Binding ClientMail}"/></TextBlock>
         </StackPanel>
-        <Button x:Name="btnMore" Click="btnMore_Click" Style="{StaticResource ucButton}">
-            <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource ucButtonIcon}"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <Button x:Name="btnMore" Click="btnMore_Click" Style="{StaticResource addButton}" Margin="0 2" Width="180">
+                <StackPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource menuButtonIcon}"/>
+                <TextBlock Text="Заказы клиента"/>
+            </StackPanel>
         </Button>
-        <Button x:Name="btnEdit" Click="btnEdit_Click" Style="{StaticResource ucButton}">
-            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource ucButtonIcon}"/>
+            <Button x:Name="btnEdit" Click="btnEdit_Click" Style="{StaticResource addButton}" Margin="0 2" Width="180">
+            <StackPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource menuButtonIcon}"/>
+                <TextBlock Text="Редактировать" />
+            </StackPanel>
         </Button>
+        </StackPanel>
     </StackPanel>
 </UserControl>
