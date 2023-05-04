@@ -34,7 +34,7 @@ namespace MityaginaNP.UI.Page
                 else
                     _numberOfPages = count / _countOfItems + 1;
 
-                DGTask.ItemsSource = App.DataBase.TaskProjects.Take(_countOfItems).ToList();
+                DGTask.ItemsSource = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == _selectedProject.ProjectID).Take(_countOfItems).ToList();
 
 
                 for (int i = 1; i <= _numberOfPages; i++)
@@ -54,26 +54,34 @@ namespace MityaginaNP.UI.Page
             int _minusPage = _currentPage - 1;
             if (_currentPage > 1)
             {
-                DGTask.ItemsSource = App.DataBase.TaskProjects.Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
+                DGTask.ItemsSource = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == _selectedProject.ProjectID).Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
 
             }
             else
             {
-                DGTask.ItemsSource = App.DataBase.TaskProjects.Take(_countOfItems).ToList();
+                DGTask.ItemsSource = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == _selectedProject.ProjectID).Take(_countOfItems).ToList();
             }
         }
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
         {
-            int _minusPage = _currentPage - 1;
-            DGTask.ItemsSource = App.DataBase.TaskProjects.Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
-            _currentPage--;
+            if(_currentPage > 0)
+            {
+                int _minusPage = _currentPage - 1;
+                DGTask.ItemsSource = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == _selectedProject.ProjectID).Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                _currentPage--;
+            }
+            
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            DGTask.ItemsSource = App.DataBase.TaskProjects.Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
-            _currentPage++;
+            if(_currentPage < _numberOfPages)
+            {
+                DGTask.ItemsSource = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == _selectedProject.ProjectID).Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                _currentPage++;
+            }
+            
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)

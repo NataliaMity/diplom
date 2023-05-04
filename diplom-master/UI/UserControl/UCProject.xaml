@@ -8,7 +8,7 @@
                 <TextBlock FontSize="20"><Run Text="Название проекта:"/> <Run Text="{Binding ProjectName}" /></TextBlock>
                 <StackPanel Orientation="Vertical">
                     <TextBlock ><Run Text="Описание проекта:"/></TextBlock>
-                    <TextBlock TextWrapping="Wrap" MaxWidth="500"><Run Text="{Binding ProjectDescription}"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap" Width="500" MaxWidth="1000"><Run Text="{Binding ProjectDescription}"/></TextBlock>
                 </StackPanel>
                 <TextBlock><Run Text="Дата начала проекта:"/> <Run Text="{Binding ProjectStartDate}"/></TextBlock>
                 <TextBlock ><Run Text="Дата окончания проекта:"/> <Run Text="{Binding ProjectEndDate}"/></TextBlock>
@@ -27,7 +27,7 @@
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource ucButton}" Margin="10 3">
-                    <Icon:PackIconMaterial Kind="AccountBox" Style="{StaticResource ucButtonIcon}" />
+                    <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource ucButtonIcon}" />
                 </Button>
                 <Button Name="ProjectChange" Margin="10 1" Click="ProjectChange_Click" Style="{StaticResource addButton}">
                     <StackPanel Orientation="Horizontal">

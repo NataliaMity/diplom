@@ -42,7 +42,7 @@
                                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0" Foreground="#b0b9c6"/>
         </Grid>
 
-        <DataGrid  Background="White" Grid.Row="4" x:Name="DGTask">
+        <DataGrid  Background="White" Grid.Row="4" AutoGenerateColumns="False" x:Name="DGTask">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>

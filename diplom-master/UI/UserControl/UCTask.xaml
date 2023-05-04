@@ -3,41 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
-    <Grid Grid.IsSharedSizeScope="True">
-        <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" MinWidth="600">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Задание:" />
-                <TextBlock Width="20" Text="{Binding TaskID}" />
+                <TextBlock FontWeight="Bold" Width="auto" Text="{Binding TaskText}" />
             </StackPanel>
-        
-        <StackPanel Orientation="Vertical">
-                <TextBlock Text="Заголовок:" />
-                <TextBlock Width="auto" Text="{Binding TaskText}" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Дата выдачи:" />
-                <TextBlock Width="70" Height="20" Text="{Binding TaskStart}" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Дата сдачи:" />
-                <TextBlock Width="70" Height="20" Text="{Binding TaskDeadLine}" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Проект:" />
-                <TextBlock Width="70" Height="20" Text="{Binding ProjectID}" Name="txtProjNum" />
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical">
-                <Button Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="Check" Style="{StaticResource ucButtonIcon}" />
-                </Button>
-                <Button Style="{StaticResource ucButton}">
-                    <Icon:PackIconMaterial Kind="Download" Style="{StaticResource ucButtonIcon}" />
-                </Button>
-                <Button Style="{StaticResource ucButton}" Name="btnChange" Click="btnChange_Click">
-                    <Icon:PackIconMaterial Kind="Pencil" Style="{StaticResource ucButtonIcon}" />
-                </Button>
-            </StackPanel>
+            <Separator />
+            <TextBlock ><Run Text="Дата выдачи:" /> <Run Text="{Binding TaskStart}" /></TextBlock>
+            <TextBlock ><Run Text="Дата сдачи:" /> <Run Text="{Binding TaskDeadLine}" /></TextBlock>
+            <TextBlock Visibility="Collapsed"><Run Text="Проект:" /> <Run Text="{Binding ProjectID}" Name="txtProjNum" /></TextBlock>
+            <TextBlock ><Run Text="Исполнитель:" /> <Run Text="{Binding User.LastName}" /></TextBlock>
+            <TextBlock ><Run Text="Отдел:" /> <Run Text="{Binding Department.DepartmentName}" /></TextBlock>
         </StackPanel>
-    </Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Style="{StaticResource addButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Check" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock Text="Изменить статус" FontSize="13" />
+                </StackPanel>
+                </Button>
+                <Button Style="{StaticResource addButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Download" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock  Text="Документация" FontSize="13"/>
+                </StackPanel>
+                </Button>
+                <Button Style="{StaticResource addButton}" Name="btnChange" Click="btnChange_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Pencil" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock Text="Редактировать" FontSize="13" />
+                </StackPanel>
+                </Button>
+            </StackPanel>
+    </StackPanel>
 </UserControl>

@@ -7,30 +7,30 @@
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Page.Resources>
-    
-    <Grid>
-        <StackPanel Orientation="Vertical">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal"  Margin="0 10">
+            <TextBlock Width="300" Text="Содержание задачи" />
+            <TextBox HorizontalAlignment="Left" x:Name="txtTaskName" Text="{Binding TaskText}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  Margin="0 10">
+            <TextBlock Width="300" Text="Наименование отдела" />
+            <ComboBox x:Name="ComboDepartment" SelectedItem="{Binding Department}" DisplayMemberPath="DepartmentName" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  Margin="0 10">
+            <TextBlock Width="300" Text="Исполнитель" />
+            <ComboBox x:Name="ComboWorker" SelectedItem="{Binding User}" DisplayMemberPath="LastName" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  Margin="0 10" HorizontalAlignment="Center">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Содержание задачи" />
-                <TextBox HorizontalAlignment="Left" x:Name="txtTaskName" Text="{Binding TaskText}"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Наименование отдела" />
-                <ComboBox x:Name="ComboDepartment" SelectedItem="{Binding Department}" DisplayMemberPath="DepartmentName" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Исполнитель" />
-                <ComboBox x:Name="ComboWorker" SelectedItem="{Binding User}" DisplayMemberPath="LastName" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Дата начала" />
+                <TextBlock Width="300" Text="Дата начала" />
                 <DatePicker x:Name="DateStart" Text="{Binding TaskStart}" />
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Дата сдачи" />
+                <TextBlock Width="300" Text="Дата сдачи" />
                 <DatePicker x:Name="DateDeadLine" Text="{Binding TaskDeadLine}"/>
             </StackPanel>
-            <Button x:Name="BtnSaveTask" Content="Сохранить" Click="BtnSaveTask_Click" Style="{StaticResource addButton}" HorizontalAlignment="Center"/>
         </StackPanel>
-    </Grid>
+        <Button x:Name="BtnSaveTask" Content="Сохранить" Click="BtnSaveTask_Click" Style="{StaticResource addButton}" HorizontalAlignment="Center"/>
+    </StackPanel>
 </Page>
