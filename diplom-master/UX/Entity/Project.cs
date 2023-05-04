@@ -28,6 +28,7 @@ namespace MityaginaNP.UX.Entity
         public System.DateTime ProjectStartDate { get; set; }
         public Nullable<System.DateTime> ProjectEndDate { get; set; }
         public string UserLogin { get; set; }
+        public string ProjectActual { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

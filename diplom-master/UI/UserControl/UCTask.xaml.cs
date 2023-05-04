@@ -34,5 +34,11 @@ namespace MityaginaNP.UI.UserControl
             string projNum = txtProjNum.Text;
             ClassNavigate.NavigateFrame.Navigate(new PageAddEditTask((sender as Button).DataContext as TaskProject, projNum));
         }
+
+        private void btnDocs_Click(object sender, RoutedEventArgs e)
+        {
+            string projNum = txtProjNum.Text;
+            ClassNavigate.NavigateFrame.Navigate(new PageDocs((sender as Button).DataContext as Document, projNum));
+        }
     }
 }

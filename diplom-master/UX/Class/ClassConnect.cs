@@ -12,8 +12,8 @@ namespace MityaginaNP.UX.Class
     {
         public static string GetSQLConnString()
         {
-            string sSqlServer = "WIN-N1PT9VUI2V5\\SQLEXPRESS2014";
-            string sDatabase = "FSTest";
+            string sSqlServer = "MAIBOOK543\\SQLEXPRESS";
+            string sDatabase = "MityaginaNP";
 
             string sConnection = string.Format(CultureInfo.InvariantCulture,
              "Data Source={0};Initial Catalog={1};Integrated Security=SSPI",

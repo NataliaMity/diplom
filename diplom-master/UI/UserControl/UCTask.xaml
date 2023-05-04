@@ -23,7 +23,7 @@
                     <TextBlock Text="Изменить статус" FontSize="13" />
                 </StackPanel>
                 </Button>
-                <Button Style="{StaticResource addButton}">
+                <Button Style="{StaticResource addButton}" x:Name="btnDocs" Click="btnDocs_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Download" Style="{StaticResource menuButtonIcon}" />
                     <TextBlock  Text="Документация" FontSize="13"/>

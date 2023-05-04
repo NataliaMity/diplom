@@ -21,7 +21,7 @@ namespace MityaginaNP.UX.Entity
         public Nullable<int> TaskID { get; set; }
     
         public virtual NotificationType NotificationType { get; set; }
-        public virtual User User { get; set; }
         public virtual TaskProject TaskProject { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -15,10 +15,10 @@
             <RowDefinition  Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="Назад" Name="btnPrevious" Click="btnPrevious_Click" />
-            <DatePicker Name="dateTimePicker" SelectedDateChanged="dateTimePicker_SelectedDateChanged"/>
-            <Button Content="Вперед" Name="btnNext" Click="btnNext_Click" />
+        <StackPanel HorizontalAlignment='Center' Orientation="Horizontal" Grid.Row="0">
+            <Button Margin="1" Content="Назад" Name="btnPrevious" Click="btnPrevious_Click" Style="{StaticResource addButton}"/>
+            <DatePicker Margin="10 0" Name="dateTimePicker" SelectedDateChanged="dateTimePicker_SelectedDateChanged" />
+            <Button Margin="1" Content="Вперед" Name="btnNext" Click="btnNext_Click" Style="{StaticResource addButton}"/>
         </StackPanel>
         <local1:GanttControl x:Name="ganttControl1" Grid.Row="1"/>
     </Grid>

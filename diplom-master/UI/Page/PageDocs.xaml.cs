@@ -33,17 +33,19 @@ namespace MityaginaNP.UI.Page
     /// </summary>
     public partial class PageDocs 
     {
-        FileSample _curfile;
-        public PageDocs()
+        Document _curfile;
+        string _curproj;
+        public PageDocs(Document _selectedDoc, string proj)
         {
             InitializeComponent();
+            _curproj = proj;
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if(Visibility == Visibility.Visible)
             {
-                DGDocs.ItemsSource = App.FSBase.FileSamples.ToList();
+                DGDocs.ItemsSource = App.DataBase.Documents.ToList();
             }
         }
 
@@ -52,14 +54,13 @@ namespace MityaginaNP.UI.Page
             SqlConnection conn = new SqlConnection(ClassConnect.GetSQLConnString());
             conn.Open();
 
-            string strQuery = "select Cast(FileData as varchar(MAX)) from FileSamples";
+            string strQuery = "select Cast(DocumentSource as varchar(MAX)) from Documents";
 
             SqlCommand cmd = new SqlCommand(strQuery, conn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 test.Text = String.Format("{0}", reader[0]);
-
             }
         }
 
@@ -76,21 +77,22 @@ namespace MityaginaNP.UI.Page
         private void btnDownloadDocs_Click(object sender, RoutedEventArgs e)
         {
             var path = "";
-            FileSample data = ((FrameworkElement)sender).DataContext as FileSample;
-            List<FileSample> files = new List<FileSample>();
+            Document data = ((FrameworkElement)sender).DataContext as Document;
+            List<Document> files = new List<Document>();
             using (SqlConnection conn = new SqlConnection(ClassConnect.GetSQLConnString()))
             {
                 conn.Open();
-                string query = "select * from FileSamples where FileId = '" + data.FileId +"'";
+                string query = "select * from Document where DocumentID = '" + data.DocumentID + "'";
                 SqlCommand command = new SqlCommand(query, conn);
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
                     Guid fileId = reader.GetGuid(0);
-                    string fileName = (string)reader.GetString(1);
-                    byte[] fileData = (byte[])reader.GetValue(2);
-                    FileSample file = new FileSample(fileId, fileName, fileData);
+                    byte[] fileData = (byte[])reader.GetValue(1);
+                    string project = (string)reader.GetValue(2);
+                    string fileName = (string)reader.GetString(3);
+                    Document file = new Document(fileId, fileName, fileData, project);
                     files.Add(file);
                 }
             }
@@ -110,14 +112,14 @@ namespace MityaginaNP.UI.Page
             fd.IsFolderPicker = true;
             if(fd.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                path = fd.FileName + "\\" + files[0].FileName;
+                path = fd.FileName + "\\" + files[0].DocumentName;
             }
             using (FileStream fs = new FileStream(path.ToString(), FileMode.OpenOrCreate))
-                {
-                    fs.Write(files[0].FileData, 0, files[0].FileData.Length);
-                    
-                    MessageBox.Show("файл скачан");
-                }
+            {
+                fs.Write(files[0].DocumentSource, 0, files[0].DocumentSource.Length);
+
+                MessageBox.Show("файл скачан");
+            }
         }
 
         private void BtnAddDoc_Click(object sender, RoutedEventArgs e)
@@ -133,20 +135,22 @@ namespace MityaginaNP.UI.Page
 
             conn.Open();
             SqlCommand insert = new SqlCommand(
-              "INSERT INTO FileSamples ([FileId], [FileName]) " +
-              "VALUES (@FileId, @FileName)", conn);
+              "INSERT INTO Document ([DocumentID], [DocumentName], [ProjectID]) " +
+              "VALUES (@FileId, @FileName, @Project)", conn);
             insert.Parameters.Add("@FileId",
               SqlDbType.UniqueIdentifier).Value = fileId;
             insert.Parameters.Add("@FileName",
               SqlDbType.VarChar, 50).Value = fileName;
+            insert.Parameters.Add("@Project",
+              SqlDbType.Int).Value = _curproj;
             insert.ExecuteNonQuery();
 
             SqlTransaction fsTx = conn.BeginTransaction();
             SqlCommand getTransaction = new SqlCommand(
-              "SELECT [FileData].PathName(), " +
+              "SELECT [DocumentSource].PathName(), " +
               "GET_FILESTREAM_TRANSACTION_CONTEXT() " +
-              "FROM FileSamples " +
-              "WHERE FileId = @FileID", conn);
+              "FROM Document " +
+              "WHERE DocumentID = @FileID", conn);
             getTransaction.Transaction = fsTx;
             getTransaction.Parameters.Add("@FileId",
               SqlDbType.UniqueIdentifier).Value = fileId;

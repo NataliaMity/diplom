@@ -26,8 +26,11 @@
                         <TextBlock Text="Документы" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource ucButton}" Margin="10 3">
-                    <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource ucButtonIcon}" />
+                <Button Style="{StaticResource addButton}" Margin="10 3" x:Name="btnCalendar" Click="GanttChart_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Расписание" FontSize="16" />
+                    </StackPanel>
                 </Button>
                 <Button Name="ProjectChange" Margin="10 1" Click="ProjectChange_Click" Style="{StaticResource addButton}">
                     <StackPanel Orientation="Horizontal">

@@ -41,8 +41,8 @@
 
         <DataGrid  Background="White" Grid.Row="3" x:Name="DGDocs">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код документа" Binding="{Binding FileId}"/>
-                <DataGridTextColumn Header="Название документа" Binding="{Binding FileName}"/>
+                <DataGridTextColumn Header="Код документа" Binding="{Binding DocumentID}"/>
+                <DataGridTextColumn Header="Название документа" Binding="{Binding DocumentName}"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

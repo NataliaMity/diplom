@@ -44,7 +44,7 @@
                                     <TextBlock Text="Проекты"/>
                                 </StackPanel>
                             </Button>
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Name="GanttChart" Click="GanttChart_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Kind="CalendarClock" />
                                     <TextBlock Text="Общий график"/>

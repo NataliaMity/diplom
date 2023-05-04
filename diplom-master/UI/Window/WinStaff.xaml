@@ -23,9 +23,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button HorizontalAlignment="Left" Grid.Row="0" Margin="20 28 0 20" Style="{StaticResource topButton}" Name="btnMenu" Click="btnMenu_Click">
-                    <Icon:PackIconMaterial Kind="Menu" Width="15" Height="15" />
-                </Button>
+               
                 <!--Меню-->
                 <Border Grid.Row="1" Background="{StaticResource ColorBlue}" CornerRadius="0 50 0 30" Name="sideBar">
                     <DockPanel>

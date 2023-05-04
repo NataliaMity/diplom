@@ -14,11 +14,24 @@ namespace MityaginaNP.UX.Entity
     
     public partial class Document
     {
-        public int DocumentID { get; set; }
+
+        public Document(Guid fileId, string fileName, byte[] fileData, string project)
+        {
+            DocumentID = fileId;
+            DocumentName = fileName;
+            DocumentSource = fileData;
+            ProjectID = project;
+        }
+
+        public Document()
+        {
+            
+        }
+
+        public System.Guid DocumentID { get; set; }
         public byte[] DocumentSource { get; set; }
         public string ProjectID { get; set; }
         public string DocumentName { get; set; }
-        public string DocumentPath { get; set; }
     
         public virtual Project Project { get; set; }
     }

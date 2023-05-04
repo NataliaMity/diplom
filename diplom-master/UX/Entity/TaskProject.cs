@@ -30,10 +30,10 @@ namespace MityaginaNP.UX.Entity
         public int StatusId { get; set; }
     
         public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual Project Project { get; set; }
         public virtual User User { get; set; }
         public virtual TaskStatu TaskStatu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

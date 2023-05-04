@@ -99,5 +99,10 @@ namespace MityaginaNP.UI.Window
             winAuth.Show();
             this.Close();
         }
+
+        private void GanttChart_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null));
+        }
     }
 }
