@@ -18,7 +18,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Проекты" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
+        <TextBlock x:Name="Header" Text="Проекты" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                    HorizontalAlignment="Left" Foreground="#121518" />
         <Button x:Name="btnAddProject" Click="btnAddProject_Click" HorizontalAlignment="Right" Margin="0 0 10 0" Style="{StaticResource addButton}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

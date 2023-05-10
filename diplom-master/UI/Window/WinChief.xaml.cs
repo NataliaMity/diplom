@@ -1,5 +1,6 @@
 ﻿using MityaginaNP.UI.Page;
 using MityaginaNP.UX.Class;
+using MityaginaNP.UX.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,22 @@ namespace MityaginaNP.UI.Window
     /// </summary>
     public partial class WinChief
     {
+        User currentUser;
         bool hidden;
-        public WinChief()
+        public WinChief(User _selectedUser)
         {
             InitializeComponent();
 
-            var dep = App.DataBase.Departments.Where(p => p.DepartmentID == 1);
-
-
+            if(_selectedUser  != null)
+            {
+                currentUser = _selectedUser;
+                DataContext = _selectedUser;
+            }
 
             ClassNavigate.NavigateFrame = ProjectFrame;
-            ProjectFrame.Navigate(new PageStaffList());
+            ProjectFrame.Navigate(new PageStaffList(App.DataBase.Departments.Where(p => p.DepartmentID == currentUser.DepartmentID).FirstOrDefault()));
+            notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -84,18 +90,18 @@ namespace MityaginaNP.UI.Window
 
         private void btnStaff_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageStaffList());
+            ClassNavigate.NavigateFrame.Navigate(new PageStaffList(App.DataBase.Departments.Where(p => p.DepartmentID == currentUser.DepartmentID).FirstOrDefault()));
         }
 
         private void btnProjects_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageProjects(null));
+            ClassNavigate.NavigateFrame.Navigate(new PageProjects(null, null));
 
         }
 
         private void btnDepTasks_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, App.DataBase.Departments.Where(p => p.DepartmentID == 1).First(), null));
+            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, App.DataBase.Departments.Where(p => p.DepartmentID == currentUser.DepartmentID).First(), null));
 
         }
 
@@ -113,7 +119,7 @@ namespace MityaginaNP.UI.Window
 
         private void btnGanttChartTask_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, App.DataBase.Departments.Where(p => p.DepartmentID == 1).First(), null));
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, App.DataBase.Departments.Where(p => p.DepartmentID == currentUser.DepartmentID).First(), null));
 
         }
     }

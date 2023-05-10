@@ -31,6 +31,16 @@ namespace MityaginaNP.UI.UserControl
         {
             InitializeComponent();
             cbStatus.ItemsSource = App.DataBase.TaskStatus.ToList();
+            if(ClassAuthorization.roleUser == 1 || ClassAuthorization.roleUser == 2)
+            {
+                cbStatus.Visibility = Visibility.Collapsed;
+                btnChange.Visibility = Visibility.Visible;
+            }
+            if (ClassAuthorization.roleUser == 3)
+            {
+                cbStatus.Visibility = Visibility.Visible;
+                btnChange.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
@@ -47,24 +57,32 @@ namespace MityaginaNP.UI.UserControl
 
         private void cbStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string sqlExpression = "UPDATE [dbo].[TaskProject] Set StatusId = '" + (cbStatus.SelectedIndex + 1) + "' Where TaskID = '" + txtTaskNum.Text + "'";
-            using (SqlConnection con = new SqlConnection(connectionString))
+            int id = (cbStatus.SelectedIndex + 1);
+            if (txtStatNum.Text != id.ToString())
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(sqlExpression, con);
-                try
+                string sqlExpression = "UPDATE [dbo].[TaskProject] Set StatusId = '" + (id) + "' Where TaskID = '" + txtTaskNum.Text + "'";
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.ExecuteNonQuery();
-                    //MessageBox.Show("Статус изменен!");
-                    ClassNotification.CheckNewStatusNotif(user.Text);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(sqlExpression, con);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Статус изменен!");
+                        ClassNotification.CheckNewStatusNotif(user.Text);
+                    }
+                    catch (SqlException ex)
+                    {
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
-                catch (SqlException ex)
-                {
-                }
-                finally
-                {
-                    con.Close();
-                }
+            }
+            else
+            {
+
             }
         }
     }

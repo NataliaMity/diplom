@@ -41,7 +41,7 @@ namespace MityaginaNP.UI.Window
                 DataContext = _selectedUser;
             }
 
-            ProjectFrame.Navigate(new PageProjects(currentUser));
+            ProjectFrame.Navigate(new PageProjects(currentUser, null));
             ClassNavigate.NavigateFrame = ProjectFrame;
             notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
         }
@@ -53,7 +53,7 @@ namespace MityaginaNP.UI.Window
 
         private void btnProjects_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageProjects(currentUser));
+            ClassNavigate.NavigateFrame.Navigate(new PageProjects(currentUser, null));
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

@@ -7,20 +7,20 @@
         <StackPanel Orientation="Vertical" MinWidth="580" Margin="0 0 20 0">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Задание:" />
-                <TextBlock FontWeight="Bold" Width="auto" Text="{Binding TaskText}" />
+                <TextBlock Width="auto" TextWrapping="Wrap" ><Run FontWeight="Bold" Text="{Binding TaskText}"/> (<Run Text="{Binding TaskStatu.StatusName}"  Name="txtTaskStat" />)</TextBlock>
             </StackPanel>
             <TextBlock ><Run Text="Дата выдачи:" /> <Run Text="{Binding TaskStart}" /></TextBlock>
             <TextBlock ><Run Text="Дата сдачи:" /> <Run Text="{Binding TaskDeadLine}" /></TextBlock>
             <TextBlock Visibility="Collapsed" Text="{Binding ProjectID}" Name="txtProjNum" />
             <TextBlock Visibility="Collapsed" Text="{Binding TaskID}" Name="txtTaskNum" />
-            <TextBlock Visibility="Collapsed" Text="{Binding StatusId}"  Name="txtTaskStat" />
+            <TextBlock Visibility="Collapsed" Text="{Binding StatusId}" Name="txtStatNum" />
 
             <TextBlock Visibility="Collapsed" Text="{Binding User.Login}"  Name="user" />
             <TextBlock x:Name="txtUser" ><Run Text="Исполнитель:" /> <Run Text="{Binding User.LastName}" /></TextBlock>
             <TextBlock ><Run Text="Отдел:" /> <Run Text="{Binding Department.DepartmentName}" /></TextBlock>
         </StackPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Width="{Binding ElementName=StackText}">
-            <ComboBox Margin="10 3" Width="150" x:Name="cbStatus" SelectionChanged="cbStatus_SelectionChanged" DisplayMemberPath="StatusName" SelectedValuePath="{Binding TaskStatu.StatusId}"  SelectedItem="{Binding TaskStatu}"/>
+            <ComboBox Margin="10 3" Width="150" x:Name="cbStatus" SelectionChanged="cbStatus_SelectionChanged" DisplayMemberPath="StatusName" SelectedValuePath="{Binding TaskStatu}" SelectedItem="{Binding TaskStatus}"/>
             <Button Margin="10 3" Style="{StaticResource addButton}" x:Name="btnDocs" Click="btnDocs_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Download" Style="{StaticResource menuButtonIcon}" />

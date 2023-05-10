@@ -26,14 +26,14 @@
             <TextBlock  Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
                         Panel.ZIndex="1" Text="Поиск сотрудника"
                         Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty,Converter = {StaticResource BoolToVis}}"/>
-            <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" />
+            <TextBox TextChanged="txtFilter_TextChanged" x:Name="txtFilter" Style="{StaticResource textboxFilter}" />
             <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15"
                                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0" Foreground="#b0b9c6"/>
         </Grid>
 
         <DataGrid  Background="White" Grid.Row="3" x:Name="DGStaff">
             <DataGrid.Columns>
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <local1:UCStaff />

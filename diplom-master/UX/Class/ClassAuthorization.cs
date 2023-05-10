@@ -9,6 +9,7 @@ namespace MityaginaNP.UX.Class
 {
     public class ClassAuthorization
     {
+        public static int roleUser;
         public static int AuthorizationUser(string login, string password, out int role)
         {
             StringBuilder builder = new StringBuilder();
@@ -34,7 +35,9 @@ namespace MityaginaNP.UX.Class
                 foreach(var _password in userAuthorization.Password)
                 { 
                     password = _password.ToString();
+                    roleUser = userAuthorization.RoleID;
                     return role = userAuthorization.RoleID;
+                    
                 }
                 return role = 0;
             }

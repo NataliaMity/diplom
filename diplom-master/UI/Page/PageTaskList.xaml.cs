@@ -93,6 +93,7 @@ namespace MityaginaNP.UI.Page
 
             _task = _filtertask;
             DGTask.ItemsSource = _filtertask.Take(_countOfItems).ToList();
+            NavigationChange();
         }
         private void Page_IsVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
@@ -106,7 +107,7 @@ namespace MityaginaNP.UI.Page
         private void UCPageBtn_ButtonClick(object sender, RoutedEventArgs e)
         {
             _currentPage = (int)sender;
-            _minusPage = _currentPage - 1;
+            int _minusPage = _currentPage - 1;
             if (_currentPage > 1)
             {
                 //if(_selectedProject != null)
@@ -135,7 +136,7 @@ namespace MityaginaNP.UI.Page
         {
             if(_currentPage > 0)
             {
-                _minusPage = _currentPage - 1;
+                int _minusPage = _currentPage - 1;
                 //if(_selectedProject  != null)
                 DGTask.ItemsSource = _task.ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
                 //if(_selectedDep != null)

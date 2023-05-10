@@ -27,8 +27,9 @@
                 <!--Меню-->
                 <Border Grid.Row="1" Background="{StaticResource ColorBlue}" CornerRadius="0 50 0 30" Name="sideBar">
                     <DockPanel>
-                        <TextBlock Name="txtDepPost" Text="Department, Post" Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
-                        <TextBlock Name="txtName" Text="Name" Foreground="White" FontSize="18" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Name="txtDep" Text="{Binding Department.DepartmentName}" Foreground="White" FontSize="22" FontWeight="Bold" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Name="txtPost" Text="{Binding Role.RoleName}" Foreground="White" FontSize="20" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Name="txtName" Foreground="White" FontSize="20" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"><Run Text="{Binding LastName}" /> <Run Text="{Binding FirstName}" /></TextBlock>
 
                         <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="{StaticResource ColorLightBlue}" />
 
@@ -63,7 +64,7 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ListView Visibility="Hidden" Grid.Row="2" Background="#72D3D3D3" Width="200" Height="300" Panel.ZIndex="5" HorizontalAlignment="Right" VerticalAlignment="Top"  Name="notificationsBar" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView Visibility="Hidden" Grid.Row="2" Background="LightGray" Width="200" Height="300" Panel.ZIndex="5" HorizontalAlignment="Right" VerticalAlignment="Top"  Name="notificationsBar" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" />

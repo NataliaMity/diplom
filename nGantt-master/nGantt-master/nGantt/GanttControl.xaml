@@ -311,7 +311,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border BorderThickness="0,1,0,1" CornerRadius="0" Opacity="0.7" Background="WhiteSmoke" Height="30" BorderBrush="DarkGray" Padding="0" Width="{Binding ElementName=Scroller, Path=ExtentWidth}">
+            <Border BorderThickness="0,1,0,1" CornerRadius="0" Opacity="0.7" Background="WhiteSmoke" Height="30" BorderBrush="DarkGray" Padding="0" Width="120">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>

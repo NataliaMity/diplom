@@ -6,10 +6,20 @@
              xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
              mc:Ignorable="d" 
               Width="200">
-    <StackPanel>
-        <TextBlock Text="{Binding NotificationType.TypeName}" FontSize="12" />
-        <TextBlock Text="{Binding User.LastName}" FontSize="12" />
-        <TextBlock Text="{Binding NotificationDateTime}" FontSize="12" />
-        <TextBlock Text="{Binding TaskProject.TaskText}" FontSize="12" />
+    <StackPanel Orientation="Vertical">
+        <TextBlock Margin="0" FontSize="12" TextWrapping="Wrap">
+            <Run Text="Системное оповещение для " />
+            <Run Text="{Binding User.LastName}" />!
+        </TextBlock>
+        <TextBlock Margin="0" FontSize="12" TextWrapping="Wrap">
+        <Run Text="{Binding NotificationType.TypeName}"/>: 
+            <Run Text="{Binding TaskProject.TaskText}" />
+        </TextBlock>
+        <TextBlock Margin="0" FontSize="12" TextWrapping="Wrap">
+            <Run Text="Дата: " />
+        <Run Text="{Binding NotificationDateTime}" />
+        </TextBlock>
+        
     </StackPanel>
+    
 </UserControl>

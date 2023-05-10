@@ -35,11 +35,23 @@ namespace MityaginaNP.UI.Window
                 winGIP.Show();
                 this.Close();
             }
-            
+            if (roleId == 2)
+            {
+                WinChief winChief = new WinChief(App.DataBase.Users.Where(p => p.Login == textLogin.Text).First());
+                winChief.Show();
+                this.Close();
+            }
+            if (roleId == 3)
+            {
+                WinStaff winStaff = new WinStaff(App.DataBase.Users.Where(p => p.Login == textLogin.Text).First());
+                winStaff.Show();
+                this.Close();
+            }
         }
 
         private void btn_Clear_Click(object sender, RoutedEventArgs e)
         {
+            textLogin.Text = "";
             textPass.Password = "";
         }
     }

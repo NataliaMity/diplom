@@ -36,61 +36,99 @@ namespace MityaginaNP.UI.Page
         private Project _curproj;
         TaskProject _task;
         int _curtask;
+        private int _currentPage = 1;
+        private int _countOfItems = 5;
+        private int _numberOfPages;
+        private int _minusPage = 0;
+
+        private List<UX.Entity.Document> _document;
+        private List<UX.Entity.Document> _filterdocument;
+
         public PageDocs(Project _selectedProj, TaskProject _selectedTask)
         {
             InitializeComponent();
             
+
             if(_selectedProj != null)
             {
                 _curproj = _selectedProj;
                 DataContext = _selectedProj;
+                _document = App.DataBase.Documents.Where(p => p.ProjectID == _curproj.ProjectID).ToList();
             }
             if(_selectedTask != null)
             {
                 _task = _selectedTask;
                 DataContext = _selectedTask;
+                _document = App.DataBase.Documents.Where(p => p.TaskID == _task.TaskID).ToList();
             }
-            
-            //_curtask = _curfile.TaskID;
-            //_curproj = proj;
+            DGDocs.ItemsSource = _document;
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if(Visibility == Visibility.Visible)
             {
-                if (_curproj != null)
-                    DGDocs.ItemsSource = App.DataBase.Documents.ToList().Where(p => p.ProjectID == _curproj.ProjectID).ToList();
-                if(_task  != null)
-                    DGDocs.ItemsSource = App.DataBase.Documents.ToList().Where(p => p.TaskID == _task.TaskID).ToList();
-
-
+                NavigationChange();
+                DataGridUpdate();
             }
         }
 
-        private void btnShowDocs_Click(object sender, RoutedEventArgs e)
+        private void NavigationChange()
         {
-            SqlConnection conn = new SqlConnection(ClassConnect.GetSQLConnString());
-            conn.Open();
-
-            string strQuery = "select Cast(DocumentSource as varchar(MAX)) from Documents";
-
-            SqlCommand cmd = new SqlCommand(strQuery, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            int count = 0;
+            int page = 0;
+            pageList.Items.Clear();
+            count = _document.Count;
+            if (count % _countOfItems == 0)
+                _numberOfPages = count / _countOfItems;
+            else
+                _numberOfPages = count / _countOfItems + 1;
+            for (int i = 1; i <= _numberOfPages; i++)
             {
-                test.Text = String.Format("{0}", reader[0]);
+                page = i;
+                pageList.Items.Add(page.ToString());
+                page = page + 1;
+
             }
+        }
+        private void DataGridUpdate()
+        {
+            _filterdocument = _document;
+            
+                if (_task != null)
+                {
+                    _filterdocument = App.DataBase.Documents.Where(p => p.TaskID == _task.TaskID).ToList();
+                }
+                if (_curproj != null)
+                {
+                    _filterdocument = App.DataBase.Documents.Where(p => p.ProjectID == _curproj.ProjectID).ToList();
+                } 
+                
+            _filterdocument = _filterdocument.Where(p => p.DocumentName.ToUpper().Contains(txtFilter.Text.ToUpper())).ToList();
+
+            _document = _filterdocument;
+            DGDocs.ItemsSource = _filterdocument.Take(_countOfItems).ToList();
         }
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage > 0)
+            {
+                _minusPage = _currentPage - 1;
+                DGDocs.ItemsSource = _document.Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                _currentPage--;
+            }
+            NavigationChange();
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage < _numberOfPages)
+            {
+                DGDocs.ItemsSource = _document.Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                _currentPage++;
+            }
+            NavigationChange();
         }
 
         private void btnDownloadDocs_Click(object sender, RoutedEventArgs e)
@@ -134,11 +172,14 @@ namespace MityaginaNP.UI.Page
             {
                 path = fd.FileName + "\\" + files[0].DocumentName;
             }
-            using (FileStream fs = new FileStream(path.ToString(), FileMode.OpenOrCreate))
+            if(path != null)
             {
-                fs.Write(files[0].DocumentSource, 0, files[0].DocumentSource.Length);
+                using (FileStream fs = new FileStream(path.ToString(), FileMode.OpenOrCreate))
+                {
+                    fs.Write(files[0].DocumentSource, 0, files[0].DocumentSource.Length);
 
-                MessageBox.Show("файл скачан");
+                    MessageBox.Show("файл скачан");
+                }
             }
         }
 
@@ -196,6 +237,34 @@ namespace MityaginaNP.UI.Page
             }
             fsTx.Commit();
             conn.Close();
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataGridUpdate();
+            NavigationChange();
+        }
+
+        private void UCPageBtn_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            _currentPage = (int)sender;
+            _minusPage = _currentPage - 1;
+            if (_currentPage > 1)
+            {
+                DGDocs.ItemsSource = _document.ToList().Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
+
+            }
+            else
+            {
+                DGDocs.ItemsSource = _document.ToList().Take(_countOfItems).ToList();
+            }
+            NavigationChange();
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            if(ClassNavigate.NavigateFrame.CanGoBack)
+            ClassNavigate.NavigateFrame.GoBack();
         }
     }
 }

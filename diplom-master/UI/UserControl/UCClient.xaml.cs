@@ -30,7 +30,7 @@ namespace MityaginaNP.UI.UserControl
 
         private void btnMore_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageClentProject((sender as Button).DataContext as Client));
+            ClassNavigate.NavigateFrame.Navigate(new PageProjects(null, (sender as Button).DataContext as Client));
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

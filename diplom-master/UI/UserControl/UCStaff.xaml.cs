@@ -26,14 +26,16 @@ namespace MityaginaNP.UI.UserControl
         public UCStaff()
         {
             InitializeComponent();
-            string name = txtName.Text;
-            //txtCount.Text = txtName.Text;
-            txtCount.Text = App.DataBase.TaskProjects.ToList().Where(p => p.User.LastName == name).Count().ToString();
         }
 
         private void btnMore_Click(object sender, RoutedEventArgs e)
         {
             ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, (sender as Button).DataContext as User));
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtCount.Text = App.DataBase.TaskProjects.ToList().Where(p => p.User.LastName == txtName.Text).Count().ToString();
         }
     }
 }

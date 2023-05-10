@@ -28,14 +28,14 @@ namespace MityaginaNP.UI.Page
         private int _countOfItems = 1;
         private int _numberOfPages;
         private int _minusPage = 0;
-        bool selected = true;
 
         User currentUser;
+        Client currentClient;
 
         private List<UX.Entity.Project> _project;
         private List<UX.Entity.Project> _filterproject;
 
-        public PageProjects(User _selectedUser)
+        public PageProjects(User _selectedUser, Client _selectedClient)
         {
             InitializeComponent();
             ProjectNow.IsEnabled = false;
@@ -43,6 +43,14 @@ namespace MityaginaNP.UI.Page
             {
                 currentUser = _selectedUser;
                 _project = App.DataBase.Projects.Where(p => p.UserLogin == currentUser.Login && p.ProjectActual == "1").ToList();
+                DGProject.ItemsSource = _project;
+            }
+            else if( _selectedClient != null)
+            {
+                
+                currentClient = _selectedClient;
+                Header.Text = "Заказы клиента " + currentClient.ClientName;
+                _project = App.DataBase.Projects.Where(p => p.ClientID == currentClient.ClientID && p.ProjectActual == "1").ToList();
                 DGProject.ItemsSource = _project;
             }
             else
@@ -75,9 +83,13 @@ namespace MityaginaNP.UI.Page
             _filterproject = _project;
             if(ProjectNow.IsEnabled == false)
             {
-                if(currentUser != null)
+                if (currentUser != null)
                 {
                     _filterproject = App.DataBase.Projects.Where(p => p.UserLogin == currentUser.Login && p.ProjectActual == "1").ToList();
+                }
+                else if (currentClient != null)
+                {
+                    _filterproject = App.DataBase.Projects.Where(p => p.ClientID == currentClient.ClientID && p.ProjectActual == "1").ToList();
                 }
                 else
                 {
@@ -91,6 +103,10 @@ namespace MityaginaNP.UI.Page
                     _filterproject = App.DataBase.Projects.Where(p => p.UserLogin == currentUser.Login && p.ProjectActual == "0").ToList();
 
                 }
+                else if (currentClient != null)
+                {
+                    _filterproject = App.DataBase.Projects.Where(p => p.ClientID == currentClient.ClientID && p.ProjectActual == "0").ToList();
+                }
                 else
                 {
                     _filterproject = App.DataBase.Projects.Where(p => p.ProjectActual == "0").ToList();
@@ -101,6 +117,8 @@ namespace MityaginaNP.UI.Page
             
             _project = _filterproject;
             DGProject.ItemsSource = _filterproject.Take(_countOfItems).ToList();
+            NavigationChange();
+
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

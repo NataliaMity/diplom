@@ -32,15 +32,19 @@ namespace MityaginaNP.UI.Page
             {
                 _curProjId = proj;
                 _curProj = selectedProj;
-                /*_curProjId = _proj.ProjectID;
-                _proj = proj;*/
+
+            }
+            if(ClassAuthorization.roleUser == 2)
+            {
+                ComboDepartment.IsEnabled = false;
+                txtTaskName.IsEnabled = false;
             }
             _curProjId = proj;
-            DateDeadLine.SelectedDate = DateTime.Now.Date;
-            DateStart.SelectedDate = DateTime.Now.Date;
+            DateDeadLine.SelectedDate = DateTime.Today.Date;
+            DateStart.SelectedDate = DateTime.Today.Date;
             DataContext = _curProj /*_proj*/;
             ComboDepartment.ItemsSource = App.DataBase.Departments.ToList();
-            ComboWorker.ItemsSource = App.DataBase.Users.ToList().Where(p => p.RoleID == 1);
+            ComboWorker.ItemsSource = App.DataBase.Users.ToList().Where(p => p.RoleID == 3 && p.DepartmentID == ComboDepartment.SelectedIndex + 1);
         }
 
         private void BtnSaveTask_Click(object sender, RoutedEventArgs e)
@@ -57,8 +61,8 @@ namespace MityaginaNP.UI.Page
                     App.DataBase.TaskProjects.Add(_curProj);
                     App.DataBase.SaveChanges();
                     
-                MessageBox.Show("Ок...");
-                ClassNotification.CheckNewTaskNotif("User");
+                MessageBox.Show("Сохранение прошло успешно!");
+                ClassNotification.CheckNewTaskNotif(App.DataBase.Users.Where(p => p.RoleID == 3 && p.DepartmentID == ComboDepartment.SelectedIndex + 1).First().Login);
             }
                 catch (Exception ex)
                 {
@@ -74,8 +78,8 @@ namespace MityaginaNP.UI.Page
                     
                     App.DataBase.SaveChanges();
                     
-                    MessageBox.Show("Ок...");
-                    ClassNotification.CheckNewStatusNotif("GIPGIP");
+                    MessageBox.Show("Сохранение прошло успешно!");
+                    ClassNotification.CheckNewStatusNotif(App.DataBase.Users.Where(p => p.Login == _curProj.UserLogin).First().Login);
                 }
                 catch (Exception ex)
                 {

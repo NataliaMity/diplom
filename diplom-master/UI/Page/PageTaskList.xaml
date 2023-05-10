@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Задачи" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                    HorizontalAlignment="Left" Foreground="#121518" />
-        <StackPanel Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             
             <Button Margin="0 0 7 -19" x:Name="btnGoBack" Click="btnGoBack_Click" Style="{StaticResource addButton}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

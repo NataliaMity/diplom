@@ -115,8 +115,8 @@ namespace MityaginaNP.UX.Class
                 var TaskProject = App.DataBase.TaskProjects.ToList();
                 string sqlExpression = "INSERT INTO[dbo].[Notification] ([TypeID], [UserLogin], [NotificationDateTime], [TaskID]) VALUES (3, '" + user + "', '" + DateTime.Now.ToString() + "', '" + project.TaskID + "')";
 
-                if (project.StatusId != 1)
-                {
+                //if (project.StatusId != 1)
+                //{
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
                         con.Open();
@@ -135,7 +135,7 @@ namespace MityaginaNP.UX.Class
                     }
 
 
-                }
+                //}
             }
         }
     }

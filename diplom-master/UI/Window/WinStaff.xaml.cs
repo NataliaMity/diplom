@@ -1,5 +1,6 @@
 ﻿using MityaginaNP.UI.Page;
 using MityaginaNP.UX.Class;
+using MityaginaNP.UX.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,19 @@ namespace MityaginaNP.UI.Window
     public partial class WinStaff 
     {
         bool hidden;
+        User currentUser;
 
-        public WinStaff()
+        public WinStaff(User _selectedUser)
         {
             InitializeComponent();
-            
+            if (_selectedUser != null)
+            {
+                currentUser = _selectedUser;
+                DataContext = _selectedUser;
+            }
             ClassNavigate.NavigateFrame = ProjectFrame;
-            ProjectFrame.Navigate(new PageTaskList(null, null, App.DataBase.Users.Where(p => p.Login == "User").First()));
+            notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
+            ProjectFrame.Navigate(new PageTaskList(null, null, App.DataBase.Users.Where(p => p.Login == currentUser.Login).First()));
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -64,22 +71,23 @@ namespace MityaginaNP.UI.Window
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
+            DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(21600) };
             dispatcherTimer.Start();
             dispatcherTimer.Tick += new EventHandler((object c, EventArgs eventArgs) =>
             {
-                ClassNotification.CheckDateNotif("User");
+                ClassNotification.CheckDateNotif(currentUser.Login);
+                ClassNotification.CheckDeadLineNotif(currentUser.Login);
             });
         }
 
         private void btnTasks_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, null, null));
+            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, null, App.DataBase.Users.Where(p => p.Login == currentUser.Login).First()));
         }
 
         private void btnGanttChart_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, App.DataBase.Users.Where(p => p.Login == "User").First()));
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, App.DataBase.Users.Where(p => p.Login == currentUser.Login).First()));
         }
 
         private void btnNotifications_Click(object sender, RoutedEventArgs e)

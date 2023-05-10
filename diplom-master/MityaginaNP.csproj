@@ -293,9 +293,6 @@
     <Compile Include="UI\Page\PageAddEditTask.xaml.cs">
       <DependentUpon>PageAddEditTask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Page\PageClentProject.xaml.cs">
-      <DependentUpon>PageClentProject.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Page\PageClientList.xaml.cs">
       <DependentUpon>PageClientList.xaml</DependentUpon>
     </Compile>
@@ -410,10 +407,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Page\PageAddEditTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Page\PageClentProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

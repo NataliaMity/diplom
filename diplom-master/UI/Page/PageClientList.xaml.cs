@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MityaginaNP.UI.Page
 {
@@ -24,33 +25,54 @@ namespace MityaginaNP.UI.Page
         private int _currentPage = 1;
         private int _countOfItems = 3;
         private int _numberOfPages;
+
+        private List<UX.Entity.Client> _client;
+        private List<UX.Entity.Client> _filterclient;
+
         public PageClientList()
         {
             InitializeComponent();
+            _client = App.DataBase.Clients.ToList();
+            DGClients.ItemsSource = _client;
+            NavigationChange();
+            DataGridUpdate();
+        }
+
+        private void NavigationChange()
+        {
+            int count = 0;
+            int page = 0;
+            pageList.Items.Clear();
+            count = _client.Count;
+            if (count % _countOfItems == 0)
+                _numberOfPages = count / _countOfItems;
+            else
+                _numberOfPages = count / _countOfItems + 1;
+            for (int i = 1; i <= _numberOfPages; i++)
+            {
+                page = i;
+                pageList.Items.Add(page.ToString());
+                page = page + 1;
+
+            }
+        }
+        private void DataGridUpdate()
+        {
+            _filterclient = _client;
+            _filterclient = App.DataBase.Clients.ToList();
+            if (txtFilter.Text != null)
+                _filterclient = _filterclient.Where(p => p.ClientName.ToUpper().Contains(txtFilter.Text.ToUpper())).ToList();
+            _client = _filterclient;
+            DGClients.ItemsSource = _filterclient.Take(_countOfItems).ToList();
+            NavigationChange();
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if(Visibility == Visibility.Visible)
             {
-                DGClients.ItemsSource = App.DataBase.Clients.ToList();
-                int count = DGClients.Items.Count;
-                if (count % _countOfItems == 0)
-                    _numberOfPages = count / _countOfItems;
-                else
-                    _numberOfPages = count / _countOfItems + 1;
-
-                DGClients.ItemsSource = App.DataBase.Clients.Take(_countOfItems).ToList();
-
-
-                for (int i = 1; i <= _numberOfPages; i++)
-                {
-                    int page = i;
-                    pageList.Items.Add(page.ToString());
-                    page = page + 1;
-
-                }
-
+                NavigationChange();
+                DataGridUpdate();
             }
         }
 
@@ -60,12 +82,14 @@ namespace MityaginaNP.UI.Page
             int _minusPage = _currentPage - 1;
             if (_currentPage > 1)
             {
-                DGClients.ItemsSource = App.DataBase.Clients.ToList().Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
+                DGClients.ItemsSource = _client.Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
             }
             else
             {
-                DGClients.ItemsSource = App.DataBase.Clients.ToList().Take(_countOfItems).ToList();
+                DGClients.ItemsSource = _client.Take(_countOfItems).ToList();
             }
+            NavigationChange();
+
         }
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
@@ -73,24 +97,33 @@ namespace MityaginaNP.UI.Page
             if(_currentPage > 0)
             {
                 int _minusPage = _currentPage - 1;
-                DGClients.ItemsSource = App.DataBase.Clients.ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                DGClients.ItemsSource = _client.Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
                 _currentPage--;
             }
+            NavigationChange();
+
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
             if(_currentPage < _numberOfPages)
             {
-                DGClients.ItemsSource = App.DataBase.Clients.ToList().Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                DGClients.ItemsSource = _client.Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
                 _currentPage++;
             }
-            
+            NavigationChange();
+
         }
 
         private void btnAddClient_Click(object sender, RoutedEventArgs e)
         {
             ClassNavigate.NavigateFrame.Navigate(new PageAddEditClients(null));
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            NavigationChange();
+            DataGridUpdate();
         }
     }
 }
