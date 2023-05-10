@@ -18,6 +18,7 @@ namespace MityaginaNP.UX.Entity
         public TaskProject()
         {
             this.Notifications = new HashSet<Notification>();
+            this.Documents = new HashSet<Document>();
         }
     
         public int TaskID { get; set; }
@@ -33,6 +34,8 @@ namespace MityaginaNP.UX.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual Project Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual User User { get; set; }
         public virtual TaskStatu TaskStatu { get; set; }
     }

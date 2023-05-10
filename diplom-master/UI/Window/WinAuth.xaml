@@ -4,23 +4,23 @@
         xmlns:local="clr-namespace:MityaginaNP.UI.Window"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
-        AllowsTransparency="True" Background="Transparent">
+        AllowsTransparency="True" WindowStyle="None" Background="White">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
 
-    <Grid>
+    <Grid >
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Войдите в систему" HorizontalAlignment="Center" FontSize="25" Foreground="{StaticResource ColorDeepBlue}" />
             <Grid Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource ColorBlue}" 
-                               IsHitTestVisible="False" Panel.ZIndex="1" Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Логин"/></TextBlock>
+                               IsHitTestVisible="False" Panel.ZIndex="1" Visibility="{Binding ElementName=textLogin, Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Логин"/></TextBlock>
                 <TextBox Name="textLogin" Style="{StaticResource textboxSearch}"/>
             </Grid>
             <Grid Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource ColorBlue}" 
-                               IsHitTestVisible="False" Panel.ZIndex="1" Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Пароль"/></TextBlock>
+                               IsHitTestVisible="False" Panel.ZIndex="1" Visibility="{Binding ElementName=textPass, Path=Password.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Пароль"/></TextBlock>
                 <PasswordBox Name="textPass"/>
             </Grid>
             <Button x:Name="btn_Login" Content="Войти" Click="btn_Login_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"  />

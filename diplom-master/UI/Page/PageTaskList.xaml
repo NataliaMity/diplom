@@ -19,25 +19,35 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Задачи" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                    HorizontalAlignment="Left" Foreground="#121518" />
-        <Button x:Name="btnAddTask" Click="BtnAddTask_Click" Style="{StaticResource addButton}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0" />
-                <TextBlock FontSize="14" Text="Добавить задачу" />
-            </StackPanel>
-        </Button>
+        <StackPanel Orientation="Horizontal">
+            
+            <Button Margin="0 0 7 -19" x:Name="btnGoBack" Click="btnGoBack_Click" Style="{StaticResource addButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0" />
+                    <TextBlock FontSize="14" Text="Назад" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnAddTask" Click="BtnAddTask_Click" Style="{StaticResource addButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0" />
+                    <TextBlock FontSize="14" Text="Добавить задачу" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        
 
         <Separator Grid.Row="2" Height="1" Background="#dae2ea" Margin="0 -1 0 10" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
-            <Button Content="Текущие задачи" Style="{StaticResource tabButton}" Margin="5 0 5 0" Width="auto" BorderBrush="{StaticResource ColorBlue}" />
-            <Button Content="Выполненные" Width="auto" Margin="5 0 5 0" Style="{StaticResource tabButton}" />
+            <Button Content="Текущие задачи" Style="{StaticResource tabButton}" Margin="5 0 5 0" Width="auto" Name="TaskNow" Click="TaskNow_Click" />
+            <Button Content="Выполненные" Width="auto" Margin="5 0 5 0" Style="{StaticResource tabButton}" Name="TaskEnd" Click="TaskEnd_Click" />
         </StackPanel>
 
         <Grid Width="200" HorizontalAlignment="Right" Grid.Row="3">
             <TextBlock  Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
                         Panel.ZIndex="1" Text="Искать задачу"
                         Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty,Converter = {StaticResource BoolToVis}}"/>
-            <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" />
+            <TextBox TextChanged="txtFilter_TextChanged"  x:Name="txtFilter" Style="{StaticResource textboxFilter}" />
             <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15"
                                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 15 0" Foreground="#b0b9c6"/>
         </Grid>

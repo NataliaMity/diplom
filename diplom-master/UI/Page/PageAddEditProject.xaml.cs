@@ -1,4 +1,5 @@
-﻿using MityaginaNP.UX.Entity;
+﻿using MityaginaNP.UX.Class;
+using MityaginaNP.UX.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,9 @@ namespace MityaginaNP.UI.Page
     public partial class PageAddEditProject 
     {
         private Project _curproject = new Project();
+        User currentUser;
         private string projId = null;
-        public PageAddEditProject(Project selectedProject)
+        public PageAddEditProject(Project selectedProject, User _selectedUser)
         {
             InitializeComponent();
             if (selectedProject != null)
@@ -31,19 +33,29 @@ namespace MityaginaNP.UI.Page
                 _curproject = selectedProject;
                 projId = selectedProject.ProjectID;
             }
+            currentUser = _selectedUser;
                 DataContext = _curproject;
                 cbClient.ItemsSource = App.DataBase.Clients.ToList();
         }
 
         private void btnSaveProject_Click(object sender, RoutedEventArgs e)
         {
+            if(checkProject.IsChecked == true)
+            {
+                _curproject.ProjectActual = "1";
+            }
+            else
+            {
+                _curproject.ProjectActual = "0";
+
+            }
             _curproject.ProjectStartDate = (DateTime)DateStart.SelectedDate;
             _curproject.ProjectEndDate = (DateTime)DateEnd.SelectedDate;
             if (projId == null)
             {
                 try
                 {
-                    _curproject.UserLogin = "GIPGIP";
+                    _curproject.UserLogin = currentUser.Login;
                     App.DataBase.Projects.Add(_curproject);
                     App.DataBase.SaveChanges();
                     MessageBox.Show("Ok");
@@ -67,6 +79,11 @@ namespace MityaginaNP.UI.Page
                     App.DataBase.Projects.Remove(_curproject);
                 }
             }
+        }
+
+        private void btnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.GoBack();
         }
     }
 }

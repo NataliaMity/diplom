@@ -25,7 +25,13 @@ namespace MityaginaNP.UI.Window
         public WinChief()
         {
             InitializeComponent();
-            ProjectFrame.Navigate(new PageProjects());
+
+            var dep = App.DataBase.Departments.Where(p => p.DepartmentID == 1);
+
+
+
+            ClassNavigate.NavigateFrame = ProjectFrame;
+            ProjectFrame.Navigate(new PageStaffList());
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -56,27 +62,59 @@ namespace MityaginaNP.UI.Window
             }
         }
 
-        private void btnMenu_Click(object sender, RoutedEventArgs e)
-        {
-            if (hidden)
-            {
-                sideBar.Width = 200;
-                hidden = false;
-                txtDepPost.Visibility = Visibility.Visible;
-                txtName.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                sideBar.Width = 60;
-                hidden = true;
-                txtDepPost.Visibility = Visibility.Hidden;
-                txtName.Visibility = Visibility.Hidden;
-            }
-        }
-
         private void btnDiagrams_Click(object sender, RoutedEventArgs e)
         {
             ClassNavigate.NavigateFrame.Navigate(new PageDiagrams());
+        }
+
+        private void btnNotifications_Click(object sender, RoutedEventArgs e)
+        {
+            if (hidden)
+            {
+
+                notificationsBar.Visibility = Visibility.Visible;
+                hidden = false;
+            }
+            else
+            {
+                notificationsBar.Visibility = Visibility.Hidden;
+                hidden = true;
+            }
+        }
+
+        private void btnStaff_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageStaffList());
+        }
+
+        private void btnProjects_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageProjects(null));
+
+        }
+
+        private void btnDepTasks_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, App.DataBase.Departments.Where(p => p.DepartmentID == 1).First(), null));
+
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            WinAuth winAuth = new WinAuth();
+            winAuth.Show();
+            this.Close();
+        }
+
+        private void btnGanttChart_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, null));
+        }
+
+        private void btnGanttChartTask_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, App.DataBase.Departments.Where(p => p.DepartmentID == 1).First(), null));
+
         }
     }
 }

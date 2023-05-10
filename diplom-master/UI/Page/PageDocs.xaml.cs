@@ -33,19 +33,38 @@ namespace MityaginaNP.UI.Page
     /// </summary>
     public partial class PageDocs 
     {
-        Document _curfile;
-        string _curproj;
-        public PageDocs(Document _selectedDoc, string proj)
+        private Project _curproj;
+        TaskProject _task;
+        int _curtask;
+        public PageDocs(Project _selectedProj, TaskProject _selectedTask)
         {
             InitializeComponent();
-            _curproj = proj;
+            
+            if(_selectedProj != null)
+            {
+                _curproj = _selectedProj;
+                DataContext = _selectedProj;
+            }
+            if(_selectedTask != null)
+            {
+                _task = _selectedTask;
+                DataContext = _selectedTask;
+            }
+            
+            //_curtask = _curfile.TaskID;
+            //_curproj = proj;
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if(Visibility == Visibility.Visible)
             {
-                DGDocs.ItemsSource = App.DataBase.Documents.ToList();
+                if (_curproj != null)
+                    DGDocs.ItemsSource = App.DataBase.Documents.ToList().Where(p => p.ProjectID == _curproj.ProjectID).ToList();
+                if(_task  != null)
+                    DGDocs.ItemsSource = App.DataBase.Documents.ToList().Where(p => p.TaskID == _task.TaskID).ToList();
+
+
             }
         }
 
@@ -92,7 +111,8 @@ namespace MityaginaNP.UI.Page
                     byte[] fileData = (byte[])reader.GetValue(1);
                     string project = (string)reader.GetValue(2);
                     string fileName = (string)reader.GetString(3);
-                    Document file = new Document(fileId, fileName, fileData, project);
+                    int task = reader.GetInt32(4);
+                    Document file = new Document(fileId, fileName, fileData, project, task);
                     files.Add(file);
                 }
             }

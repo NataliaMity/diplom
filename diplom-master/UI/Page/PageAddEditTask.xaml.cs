@@ -84,5 +84,10 @@ namespace MityaginaNP.UI.Page
             }
             
         }
+
+        private void btnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.GoBack();
+        }
     }
 }

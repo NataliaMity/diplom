@@ -1,9 +1,11 @@
 ﻿using MityaginaNP.UI.Page;
 using MityaginaNP.UX.Class;
 using MityaginaNP.UX.Entity;
+using Syncfusion.ProjIO;
 using Syncfusion.Windows.Shared;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +26,13 @@ namespace MityaginaNP.UI.UserControl
     /// </summary>
     public partial class UCTask
     {
+        public static string connectionString = ClassConnect.GetSQLConnString();
         public UCTask()
         {
             InitializeComponent();
+            cbStatus.ItemsSource = App.DataBase.TaskStatus.ToList();
         }
-        
+
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
             string projNum = txtProjNum.Text;
@@ -37,8 +41,31 @@ namespace MityaginaNP.UI.UserControl
 
         private void btnDocs_Click(object sender, RoutedEventArgs e)
         {
-            string projNum = txtProjNum.Text;
-            ClassNavigate.NavigateFrame.Navigate(new PageDocs((sender as Button).DataContext as Document, projNum));
+            string taskNum = txtTaskNum.Text;
+            ClassNavigate.NavigateFrame.Navigate(new PageDocs(null, (sender as Button).DataContext as TaskProject));
+        }
+
+        private void cbStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string sqlExpression = "UPDATE [dbo].[TaskProject] Set StatusId = '" + (cbStatus.SelectedIndex + 1) + "' Where TaskID = '" + txtTaskNum.Text + "'";
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sqlExpression, con);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Статус изменен!");
+                    ClassNotification.CheckNewStatusNotif(user.Text);
+                }
+                catch (SqlException ex)
+                {
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 }

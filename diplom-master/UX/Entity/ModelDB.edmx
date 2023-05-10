@@ -35,6 +35,7 @@
           <Property Name="DocumentSource" Type="varbinary(max)" />
           <Property Name="ProjectID" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="DocumentName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="TaskID" Type="int" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -118,6 +119,18 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_TaskProject">
+          <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskProject">
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="TaskID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -268,11 +281,16 @@
     [Document].[DocumentID] AS [DocumentID], 
     [Document].[DocumentSource] AS [DocumentSource], 
     [Document].[ProjectID] AS [ProjectID], 
-    [Document].[DocumentName] AS [DocumentName]
+    [Document].[DocumentName] AS [DocumentName], 
+    [Document].[TaskID] AS [TaskID]
     FROM [dbo].[Document] AS [Document]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Document_Project" Association="Self.FK_Document_Project">
             <End Role="Project" EntitySet="Project" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_TaskProject" Association="Self.FK_Document_TaskProject">
+            <End Role="TaskProject" EntitySet="TaskProject" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
           <AssociationSet Name="FK_Notification_NotificationType" Association="Self.FK_Notification_NotificationType">
@@ -407,6 +425,7 @@
           <NavigationProperty Name="Department" Relationship="Self.FK_Task_Department" FromRole="TaskProject" ToRole="Department" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_TaskProject" FromRole="TaskProject" ToRole="Notification" />
           <NavigationProperty Name="Project" Relationship="Self.FK_Task_Project" FromRole="TaskProject" ToRole="Project" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Document_TaskProject" FromRole="TaskProject" ToRole="Document" />
           <NavigationProperty Name="User" Relationship="Self.FK_Task_User" FromRole="TaskProject" ToRole="User" />
           <NavigationProperty Name="TaskStatu" Relationship="Self.FK_TaskProject_TaskStatus" FromRole="TaskProject" ToRole="TaskStatus" />
         </EntityType>
@@ -449,7 +468,9 @@
           <Property Name="DocumentSource" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProjectID" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="DocumentName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskID" Type="Int32" />
           <NavigationProperty Name="Project" Relationship="Self.FK_Document_Project" FromRole="Document" ToRole="Project" />
+          <NavigationProperty Name="TaskProject" Relationship="Self.FK_Document_TaskProject" FromRole="Document" ToRole="TaskProject" />
         </EntityType>
         <Association Name="FK_Project_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -571,6 +592,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Document_TaskProject">
+          <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskProject">
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Task_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="*" />
@@ -645,6 +678,10 @@
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_TaskProject" Association="Self.FK_Document_TaskProject">
+            <End Role="TaskProject" EntitySet="TaskProjects" />
+            <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Task_User" Association="Self.FK_Task_User">
             <End Role="User" EntitySet="Users" />
@@ -768,6 +805,7 @@
                 <ScalarProperty Name="DocumentSource" ColumnName="DocumentSource" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

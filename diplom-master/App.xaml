@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MityaginaNP"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="UI/Window/WinGIP.xaml">
+             StartupUri="UI/Window/WinAuth.xaml">
     
     <Application.Resources>
         
@@ -18,9 +18,27 @@
         <SolidColorBrush x:Key="ColorLightBlue" Color="#0389C4" />
         <SolidColorBrush x:Key="ColorLightGray" Color="#e0e6ed" />
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
-        
 
-        <Style x:Key="topButton" TargetType="Button">
+            <Style x:Key="GroupStyleHeader" TargetType="{x:Type GroupItem}">
+                <Setter Property="Background" Value="#B2BBDED6" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                            <Expander x:Name="exp" IsExpanded="True" Background="White" Foreground="Black">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text=""></TextBlock>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ItemsPresenter />
+                            </Expander>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6e7783" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -80,9 +98,9 @@
 
             <Style x:Key="textboxSearch" TargetType="TextBox">
             <Setter Property="Background" Value="White" />
-            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontSize" Value="17" />
             <Setter Property="Padding" Value="15 10" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="0 10" />
@@ -155,10 +173,13 @@
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="{StaticResource ColorBlue}" />
-                </Trigger>
-            </Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource ColorBlue}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="BorderBrush" Value="{StaticResource ColorBlue}" />
+                    </Trigger>
+                </Style.Triggers>
         </Style>
 
         <Style x:Key="textboxFilter" TargetType="TextBox" BasedOn="{StaticResource textboxSearch}">
@@ -248,7 +269,7 @@
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="Height" Value="35" />
             <Setter Property="Width" Value="500" />
             <Setter Property="Background" Value="White" />
@@ -260,7 +281,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="2" SnapsToDevicePixels="True">
+                        <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="1" SnapsToDevicePixels="True">
                             <Grid Margin="{TemplateBinding Padding}">
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Grid.Column="0"
                                               Margin="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
@@ -282,11 +303,11 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontSize" Value="17" />
             <Setter Property="Padding" Value="15 10" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0 10" />
-            <Setter Property="Template">
+                <Setter Property="Margin" Value="0 10" />
+                <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="PasswordBox">
                         <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
@@ -317,27 +338,24 @@
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
 
-        <ControlTemplate x:Key="cbToggleButton" TargetType="ToggleButton">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="30" />
-                </Grid.ColumnDefinitions>
-                <Border x:Name="Border"
+            <ControlTemplate x:Key="cbToggleButton" TargetType="ToggleButton">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="Border"
                             Grid.ColumnSpan="2" CornerRadius="10"
-                            BorderBrush="LightGray" BorderThickness="0.6"
+                            BorderBrush="LightGray" BorderThickness="1"
                             SnapsToDevicePixels="True">
-                </Border>
-                <Border Grid.Column="1">
-                    <Path x:Name="Arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
+                    </Border>
+                    <Border Grid.Column="1">
+                        <Path x:Name="Arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
                               Fill="Black" Stretch="Fill" Height="7" Width="10"
                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-            </Grid>
-        </ControlTemplate>
-        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
-            <Border x:Name="PART_ContentHost" Focusable="False" Background="White" />
-        </ControlTemplate>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
 
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5" />
@@ -351,7 +369,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Border Background="White" CornerRadius="10" BorderBrush="LightGray" BorderThickness="2">
+                        <Border Background="White" CornerRadius="10" BorderBrush="LightGray" BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -370,12 +388,12 @@
                                               Content="{TemplateBinding SelectionBoxItem}"
                                               ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                               Margin="11 0 25 0"
-                                              VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="True"/>
+                                              VerticalAlignment="Center" HorizontalAlignment="Left" />
                             <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                                 <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                    <Border x:Name="DropDownBorder" BorderThickness="2" CornerRadius="10" BorderBrush="LightGray" Background="White"/>
-                                    <ScrollViewer Margin="4 6 4 6" SnapsToDevicePixels="True" OverridesDefaultStyle="True" Foreground="Black" FontSize="11"/>
+                                    <Border x:Name="DropDownBorder" BorderThickness="1" CornerRadius="10" BorderBrush="LightGray" Background="White"/>
+                                    <ScrollViewer Margin="4 6 4 6" SnapsToDevicePixels="True" OverridesDefaultStyle="True" />
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained">
 
                                     </StackPanel>
@@ -406,16 +424,15 @@
         </Style>
 
         <Style x:Key="tbox_TextPlaceholder" TargetType="TextBox">
-            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="Height" Value="35" />
-            <Setter Property="Width" Value="500" />
+            <Setter Property="Width" Value="300" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Padding" Value="5 4.5 5 4" />
             <Setter Property="Grid.Column" Value="1" />
-            <Setter Property="Cursor" Value="IBeam" />
-            <Setter Property="Cursor" Value="IBeam" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Cursor" Value="IBeam" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -438,7 +455,30 @@
             </Setter>
         </Style>
 
-        <ImageBrush ImageSource="{Icon:MaterialImage Kind=Calendar}" x:Key="Cal_Image" />
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <Border Name="Border"
+                                    
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource ColorLightBlue}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <ImageBrush ImageSource="{Icon:MaterialImage Kind=Calendar}" x:Key="Cal_Image" />
         <Style x:Key="bt_CalendarStyle" TargetType="Button">
             <Setter Property="Width" Value="30" />
             <Setter Property="Height" Value="30" />

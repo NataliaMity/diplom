@@ -6,10 +6,6 @@
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="MityaginaNP.UI.Window.WinGIP"
         Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="Transparent" >
 
-    <Window.Resources>
-        
-    </Window.Resources>
-    
     <Border Background="White" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -26,8 +22,8 @@
                 <!--Меню-->
                 <Border HorizontalAlignment="Left" Grid.Row="1" Background="{StaticResource ColorBlue}" CornerRadius="0 50 0 30" Name="sideBar">
                     <DockPanel>
-                        <TextBlock Name="txtDepPost" Text="Department, Post" Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
-                        <TextBlock Name="txtName" Text="Name" Foreground="White" FontSize="18" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Name="txtDepPost" Text="{Binding Role.RoleName}" Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
+                        <TextBlock Name="txtName" Foreground="White" FontSize="18" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"><Run Text="{Binding LastName}" /> <Run Text="{Binding FirstName}" /></TextBlock>
 
                         <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="{StaticResource ColorLightBlue}" />
 
@@ -69,7 +65,7 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ListView Visibility="Hidden" Grid.Row="2" Background="#72D3D3D3" Width="200" Height="300" Panel.ZIndex="5" HorizontalAlignment="Right" VerticalAlignment="Top"  Name="notificationsBar" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView Visibility="Hidden" Grid.Row="2" Background="LightGray" Width="200" Height="300" Panel.ZIndex="5" HorizontalAlignment="Right" VerticalAlignment="Top"  Name="notificationsBar" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" />

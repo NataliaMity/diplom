@@ -5,7 +5,7 @@
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.IsSharedSizeScope="True">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical" Width="600" Name="StackText">
-                <TextBlock FontSize="20"><Run Text="Название проекта:"/> <Run Text="{Binding ProjectName}" /></TextBlock>
+                <TextBlock FontSize="20"><Run Text="Проект:"/> <Run Text="{Binding ProjectName}" /> (<Run x:Name="projID" Text="{Binding ProjectID}" />)</TextBlock>
                 <StackPanel Orientation="Vertical">
                     <TextBlock ><Run Text="Описание проекта:"/></TextBlock>
                     <TextBlock TextWrapping="Wrap" Width="500" MaxWidth="1000"><Run Text="{Binding ProjectDescription}"/></TextBlock>

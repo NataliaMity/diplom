@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MityaginaNP.UX.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace MityaginaNP.UI.Window
     /// </summary>
     public partial class WinAuth
     {
+        private int roleId;
         public WinAuth()
         {
             InitializeComponent();
@@ -26,14 +28,18 @@ namespace MityaginaNP.UI.Window
 
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
-            WinGIP winGIP = new WinGIP();
-            winGIP.Show();
-            this.Close();
+            ClassAuthorization.AuthorizationUser(textLogin.Text, textPass.Password, out roleId);
+            if(roleId == 1)
+            {
+                WinGIP winGIP = new WinGIP(App.DataBase.Users.Where(p => p.Login == textLogin.Text).First());
+                winGIP.Show();
+                this.Close();
+            }
+            
         }
 
         private void btn_Clear_Click(object sender, RoutedEventArgs e)
         {
-            textLogin.Text = "123";
             textPass.Password = "";
         }
     }

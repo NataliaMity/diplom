@@ -25,6 +25,7 @@
                 <TextBox x:Name="txtEmailClient" Text="{Binding ClientMail}"/>
             </StackPanel>
             <Button x:Name="btnSaveClient" Content="Сохранить" Click="btnSaveClient_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
+            <Button x:Name="btnGoBack" Margin="5" Content="Назад" Click="btnGoBack_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
         </StackPanel>
     </Grid>
 </Page>

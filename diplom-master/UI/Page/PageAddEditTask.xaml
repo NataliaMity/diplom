@@ -32,5 +32,6 @@
             </StackPanel>
         </StackPanel>
         <Button x:Name="BtnSaveTask" Content="Сохранить" Click="BtnSaveTask_Click" Style="{StaticResource addButton}" HorizontalAlignment="Center"/>
+        <Button x:Name="btnGoBack" Margin="5" Content="Назад" Click="btnGoBack_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
     </StackPanel>
 </Page>

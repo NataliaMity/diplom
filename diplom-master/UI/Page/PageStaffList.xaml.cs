@@ -40,7 +40,7 @@ namespace MityaginaNP.UI.Page
                 else
                     _numberOfPages = count / _countOfItems + 1;
 
-                DGStaff.ItemsSource = App.DataBase.Projects.Take(_countOfItems).ToList();
+                DGStaff.ItemsSource = App.DataBase.Users.Take(_countOfItems).ToList();
 
 
                 for (int i = 1; i <= _numberOfPages; i++)
@@ -59,26 +59,32 @@ namespace MityaginaNP.UI.Page
             int _minusPage = _currentPage - 1;
             if (_currentPage > 1)
             {
-                DGStaff.ItemsSource = App.DataBase.Projects.Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
+                DGStaff.ItemsSource = App.DataBase.Users.ToList().Skip(_countOfItems * _minusPage).Take(_countOfItems).ToList();
 
             }
             else
             {
-                DGStaff.ItemsSource = App.DataBase.Projects.Take(_countOfItems).ToList();
+                DGStaff.ItemsSource = App.DataBase.Users.ToList().Take(_countOfItems).ToList();
             }
         }
 
         private void PrevPage_Click(object sender, RoutedEventArgs e)
         {
-            int _minusPage = _currentPage - 1;
-            DGStaff.ItemsSource = App.DataBase.Projects.Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
-            _currentPage--;
+            if(_currentPage > 0)
+            {
+                int _minusPage = _currentPage - 1;
+                DGStaff.ItemsSource = App.DataBase.Users.ToList().Take(_countOfItems * _currentPage).Skip(_countOfItems * _minusPage).ToList();
+                _currentPage--;
+            }
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            DGStaff.ItemsSource = App.DataBase.Projects.Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
-            _currentPage++;
+            if (_currentPage < _numberOfPages)
+            {
+                DGStaff.ItemsSource = App.DataBase.Users.ToList().Skip(_countOfItems * _currentPage).Take(_countOfItems).ToList();
+                _currentPage++;
+            }
         }
     }
 }

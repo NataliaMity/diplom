@@ -30,22 +30,22 @@ namespace MityaginaNP.UI.UserControl
 
         private void ProjectTask_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageTaskList((sender as Button).DataContext as Project));
+            ClassNavigate.NavigateFrame.Navigate(new PageTaskList((sender as Button).DataContext as Project, null, null));
         }
 
         private void ProjectChange_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageAddEditProject((sender as Button).DataContext as Project));
+            ClassNavigate.NavigateFrame.Navigate(new PageAddEditProject((sender as Button).DataContext as Project, null));
         }
 
         private void GanttChart_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart((sender as Button).DataContext as Project));
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart((sender as Button).DataContext as Project, null, null));
         }
 
         private void ProjectDos_Click(object sender, RoutedEventArgs e)
         {
-
+            ClassNavigate.NavigateFrame.Navigate(new PageDocs((sender as Button).DataContext as Project, null));
         }
     }
 }

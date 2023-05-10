@@ -28,6 +28,8 @@
             <DatePicker x:Name="DateEnd" Text="{Binding ProjectEndDate}" />
         </StackPanel>
     </StackPanel>
+        <CheckBox x:Name="checkProject" Content="Проект завершен" IsChecked="False" HorizontalAlignment="Center" Margin="0 20 0 0" Padding="0 -10 0 0" VerticalAlignment="Center" />
         <Button x:Name="btnSaveProject" Content="Сохранить" Click="btnSaveProject_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
+        <Button x:Name="btnGoBack" Margin="5" Content="Назад" Click="btnGoBack_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
     </StackPanel>
 </Page>

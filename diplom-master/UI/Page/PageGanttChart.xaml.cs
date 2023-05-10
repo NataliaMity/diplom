@@ -29,46 +29,56 @@ namespace MityaginaNP.UI.Page
     public partial class PageGanttChart
     {
         private Project curProject;
+        private Department curDep;
         private int GantLenght { get; set; }
         private ObservableCollection<ContextMenuItem> ganttTaskContextMenuItems = new ObservableCollection<ContextMenuItem>();
         private ObservableCollection<SelectionContextMenuItem> selectionContextMenuItems = new ObservableCollection<SelectionContextMenuItem>();
-        public PageGanttChart(Project selectedProject)
+        private User curUser;
+
+        public PageGanttChart(Project selectedProject, Department selectedDep, User selectedUser)
         {
             InitializeComponent();
-            curProject = selectedProject;
-            
+            if (selectedProject != null)
+                curProject = selectedProject;
+            if (selectedDep != null)
+                curDep = selectedDep;
+            if (selectedUser != null)
+                curUser = selectedUser;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            GantLenght = 25;
             if(curProject != null)
             {
-                GantLenght = 25;
                 dateTimePicker.SelectedDate = curProject.ProjectStartDate;
-                DateTime minDate = /*(DateTime)dateTimePicker.SelectedDate*/ (DateTime)curProject.ProjectStartDate;
-                DateTime maxDate = /*minDate.AddDays(GantLenght)*/ (DateTime)curProject.ProjectEndDate;
+                DateTime minDate = (DateTime)curProject.ProjectStartDate;
+                DateTime maxDate = (DateTime)curProject.ProjectEndDate;
 
-                // Set selection -mode
                 ganttControl1.TaskSelectionMode = nGantt.GanttControl.SelectionMode.Single;
-                // Enable GanttTasks to be selected
                 ganttControl1.AllowUserSelection = true;
-
-                // listen to the GanttRowAreaSelected event
                 ganttControl1.GanttRowAreaSelected += new EventHandler<PeriodEventArgs>(ganttControl1_GanttRowAreaSelected);
-
-                /*// define ganttTask context menu and action when each item is clicked
-                ganttTaskContextMenuItems.Add(new ContextMenuItem(ViewClicked, "View..."));
-                ganttTaskContextMenuItems.Add(new ContextMenuItem(EditClicked, "Edit..."));
-                ganttTaskContextMenuItems.Add(new ContextMenuItem(DeleteClicked, "Delete..."));
-                ganttControl1.GanttTaskContextMenuItems = ganttTaskContextMenuItems;*/
-
-                /*// define selection context menu and action when each item is clicked
-                selectionContextMenuItems.Add(new SelectionContextMenuItem(NewClicked, "New..."));
-                ganttControl1.SelectionContextMenuItems = selectionContextMenuItems;*/
+            }
+            else if(curDep != null)
+            {
+                dateTimePicker.SelectedDate = DateTime.Today;
+                DateTime minDate = (DateTime)dateTimePicker.SelectedDate;
+                DateTime maxDate = minDate.AddDays(GantLenght);
+                ganttControl1.TaskSelectionMode = nGantt.GanttControl.SelectionMode.Single;
+                ganttControl1.AllowUserSelection = true;
+                ganttControl1.GanttRowAreaSelected += new EventHandler<PeriodEventArgs>(ganttControl1_GanttRowAreaSelected);
+            }
+            else if (curUser != null)
+            {
+                dateTimePicker.SelectedDate = DateTime.Today;
+                DateTime minDate = (DateTime)dateTimePicker.SelectedDate;
+                DateTime maxDate = minDate.AddDays(GantLenght);
+                ganttControl1.TaskSelectionMode = nGantt.GanttControl.SelectionMode.Single;
+                ganttControl1.AllowUserSelection = true;
+                ganttControl1.GanttRowAreaSelected += new EventHandler<PeriodEventArgs>(ganttControl1_GanttRowAreaSelected);
             }
             else
             {
-                GantLenght = 25;
                 dateTimePicker.SelectedDate = DateTime.Today;
                 DateTime minDate = (DateTime)dateTimePicker.SelectedDate;
                 DateTime maxDate = minDate.AddDays(GantLenght);
@@ -94,27 +104,75 @@ namespace MityaginaNP.UI.Page
         {
             if (curProject != null)
             {
-                // Set max and min dates
                 ganttControl1.Initialize(minDate, maxDate);
-
-                // Create timelines and define how they should be presented
                 ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
                 ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
                 var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
                 ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
-
-                // Set the timeline to atatch gridlines to
                 ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
 
 
                 var currentTasks = App.DataBase.TaskProjects.ToList().Where(p => p.ProjectID == curProject.ProjectID);
-                var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
-                var row1 = ganttControl1.CreateGanttRow(rowgroup1, curProject.ProjectName);
                 try
                 {
+                    var rowgroup1 = ganttControl1.CreateGanttRowGroup(curProject.ProjectName);
+
                     foreach (var task in currentTasks)
                     {
-                        ganttControl1.AddGanttTask(row1, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText });
+                        var row1 = ganttControl1.CreateGanttRow(rowgroup1, task.TaskText);
+
+                        ganttControl1.AddGanttTask(row1, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+            else if (curDep != null)
+            {
+                ganttControl1.Initialize(minDate, maxDate);
+                ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
+                ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
+                var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
+                ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
+                ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
+
+                var currentTasks = App.DataBase.TaskProjects.ToList();
+                var currentProjects = App.DataBase.Projects.ToList();
+                try
+                {
+                    var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
+                    foreach (var task in currentTasks)
+                    {
+                        var row = ganttControl1.CreateGanttRow(rowgroup1, task.User.LastName);
+                        ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            else if (curUser != null)
+            {
+                ganttControl1.Initialize(minDate, maxDate);
+                ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
+                ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
+                var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
+                ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
+                ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
+
+                var currentTasks = App.DataBase.TaskProjects.ToList().Where(p => p.UserLogin == curUser.Login).ToList();
+                var currentProjects = App.DataBase.Projects.ToList();
+                try
+                {
+                    var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
+                    foreach (var task in currentTasks)
+                    {
+                        var row = ganttControl1.CreateGanttRow(rowgroup1, task.TaskText);
+                        ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
                     }
                 }
                 catch
@@ -124,35 +182,23 @@ namespace MityaginaNP.UI.Page
             }
             else
             {
-                // Set max and min dates
                 ganttControl1.Initialize(minDate, maxDate);
-
-                // Create timelines and define how they should be presented
                 ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
                 ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
                 var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
                 ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
-
-                // Set the timeline to atatch gridlines to
                 ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
 
-
                 var currentTasks = App.DataBase.TaskProjects.ToList();
-                var currentProjects = App.DataBase.Projects.ToList().Where(p => p.ProjectActual == "1");
-                var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
+                var currentProjects = App.DataBase.Projects.ToList();
                 try
                 {
+                    var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
                     foreach (var project in currentProjects)
                     {
+                        
                         var row = ganttControl1.CreateGanttRow(rowgroup1, project.ProjectName);
-                        foreach (var task in currentTasks)
-                        {
-                            if(task.Project.ProjectName == row.ToString())
-                            {
-                                ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText });
-
-                            }
-                        }
+                        ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)project.ProjectStartDate, End = (DateTime)project.ProjectEndDate, Name = project.ProjectName, TaskProgressVisibility = Visibility.Collapsed });
                     }
                 }
                 catch
@@ -160,28 +206,6 @@ namespace MityaginaNP.UI.Page
 
                 }
             }
-
-
-
-            // Create and data
-            /*var rowgroup1 = ganttControl1.CreateGanttRowGroup("HeaderdGanttRowGroup");
-            var row1 = ganttControl1.CreateGanttRow(rowgroup1, "GanttRow 1");
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-02-01"), End = DateTime.Parse("2012-03-01"), Name = "GanttRow 1:GanttTask 1", TaskProgressVisibility = System.Windows.Visibility.Hidden });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-03-05"), End = DateTime.Parse("2012-05-01"), Name = "GanttRow 1:GanttTask 2" });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-06-01"), End = DateTime.Parse("2012-06-15"), Name = "GanttRow 1:GanttTask 3" });
-
-            var rowgroup2 = ganttControl1.CreateGanttRowGroup("ExpandableGanttRowGroup", true);
-            var row2 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 2");
-            var row3 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 3");
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-02-10"), End = DateTime.Parse("2012-03-10"), Name = "GanttRow 2:GanttTask 1" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-03-25"), End = DateTime.Parse("2012-05-10"), Name = "GanttRow 2:GanttTask 2" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-06-10"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 2:GanttTask 3", PercentageCompleted = 0.375 });
-            ganttControl1.AddGanttTask(row3, new GanttTask() { Start = DateTime.Parse("2012-01-07"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 3:GanttTask 1", PercentageCompleted = 0.5 });
-
-            var rowgroup3 = ganttControl1.CreateGanttRowGroup();
-            var row4 = ganttControl1.CreateGanttRow(rowgroup3, "GanttRow 4");
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-02-14"), End = DateTime.Parse("2012-02-27"), Name = "GanttRow 4:GanttTask 1", PercentageCompleted = 1 });
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-04-8"), End = DateTime.Parse("2012-09-19"), Name = "GanttRow 4:GanttTask 2" });*/
         }
         private string FormatYear(Period period)
         {

@@ -5,11 +5,18 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding UserName}" Width="200" />
-                <TextBlock Text="чет еще" Width="200" />
+                <TextBlock Text="Имя: " />
+                <TextBlock x:Name="txtName" Text="{Binding LastName}" />
+                <TextBlock Text="{Binding FirstName}" /> 
+                <TextBlock Text="{Binding Patronymic}" />
+                <TextBlock  Text="Задач в работе:"/>
+                <TextBlock x:Name="txtCount" />
             </StackPanel>
-            <Button x:Name="btnMore" Style="{StaticResource ucButton}">
-                <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource ucButtonIcon}"/>
+            <Button Click="btnMore_Click" x:Name="btnMore" Style="{StaticResource addButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="FormatListText" Style="{StaticResource ucButtonIcon}"/>
+                    <TextBlock Text="Задачи сотрудника" FontSize="13" Padding="0" Margin="1"/>
+                </StackPanel>
             </Button>
         </StackPanel>    
     </Grid>

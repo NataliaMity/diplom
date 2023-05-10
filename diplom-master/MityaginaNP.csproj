@@ -311,9 +311,6 @@
     <Compile Include="UI\Page\PageProjects.xaml.cs">
       <DependentUpon>PageProjects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Page\PageReports.xaml.cs">
-      <DependentUpon>PageReports.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Page\PageStaffList.xaml.cs">
       <DependentUpon>PageStaffList.xaml</DependentUpon>
     </Compile>
@@ -328,9 +325,6 @@
     </Compile>
     <Compile Include="UI\UserControl\UCPageBtn.xaml.cs">
       <DependentUpon>UCPageBtn.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UserControl\UCProject1.xaml.cs">
-      <DependentUpon>UCProject1.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControl\UCProject.xaml.cs">
       <DependentUpon>UCProject.xaml</DependentUpon>
@@ -357,6 +351,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UX\Class\ClassAuthorization.cs" />
     <Compile Include="UX\Class\ClassConnect.cs" />
     <Compile Include="UX\Class\ClassNavigate.cs" />
     <Compile Include="UX\Class\ClassNotification.cs" />
@@ -442,10 +437,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Page\PageReports.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Page\PageStaffList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -465,10 +456,6 @@
     <Page Include="UI\UserControl\UCPageBtn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\UserControl\UCProject1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UserControl\UCProject.xaml">
       <SubType>Designer</SubType>

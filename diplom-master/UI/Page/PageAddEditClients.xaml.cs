@@ -1,4 +1,5 @@
-﻿using MityaginaNP.UX.Entity;
+﻿using MityaginaNP.UX.Class;
+using MityaginaNP.UX.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,11 @@ namespace MityaginaNP.UI.Page
                 }
             }
             
+        }
+
+        private void btnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.GoBack();
         }
     }
 }

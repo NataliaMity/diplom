@@ -20,6 +20,7 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
 using System.Windows.Threading;
+using MityaginaNP.UX.Entity;
 
 namespace MityaginaNP.UI.Window
 {
@@ -29,12 +30,20 @@ namespace MityaginaNP.UI.Window
     public partial class WinGIP 
     {
         bool hidden;
-        public WinGIP()
+        User currentUser;
+        public WinGIP(User _selectedUser)
         {
             InitializeComponent();
-            ProjectFrame.Navigate(new PageProjects());
+
+            if(_selectedUser != null)
+            {
+                currentUser = _selectedUser;
+                DataContext = _selectedUser;
+            }
+
+            ProjectFrame.Navigate(new PageProjects(currentUser));
             ClassNavigate.NavigateFrame = ProjectFrame;
-            notificationsBar.ItemsSource = App.DataBase.Notifications.ToList();
+            notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
         }
 
         private void btnClients_Click(object sender, RoutedEventArgs e)
@@ -44,7 +53,7 @@ namespace MityaginaNP.UI.Window
 
         private void btnProjects_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageProjects());
+            ClassNavigate.NavigateFrame.Navigate(new PageProjects(currentUser));
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -102,7 +111,7 @@ namespace MityaginaNP.UI.Window
 
         private void GanttChart_Click(object sender, RoutedEventArgs e)
         {
-            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null));
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, null));
         }
     }
 }

@@ -14,11 +14,11 @@
             <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Row="0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 30 0 0">
                     <TextBlock  Margin="0 0 15 0" Text="Сформировать отчет от" VerticalAlignment="Center"/>
-                    <DatePicker  SelectedDateChanged="dpDateFrom_SelectedDateChanged" x:Name="dpDateFrom" ></DatePicker>
+                    <DatePicker  SelectedDateChanged="UpdateChartDate" x:Name="dpDateFrom" ></DatePicker>
                     <TextBlock Margin="15 0 15 0" Text="до" VerticalAlignment="Center"/>
-                    <DatePicker x:Name="dpDateBefore" SelectedDateChanged="dpDateBefore_SelectedDateChanged"></DatePicker>
+                    <DatePicker x:Name="dpDateBefore" SelectedDateChanged="UpdateChartDate"></DatePicker>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 30 0 0">
+                <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 30 0 0">
                     <TextBlock Text="Тип диаграммы" VerticalAlignment="Center"/>
                     <ComboBox SelectionChanged="UpdateChart" SelectedIndex="0" x:Name="cmbDiagram" Cursor="Hand"></ComboBox>
                     <TextBlock Text="Статус задачи" VerticalAlignment="Center"/>

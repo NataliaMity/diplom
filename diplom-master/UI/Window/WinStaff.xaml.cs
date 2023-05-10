@@ -28,7 +28,9 @@ namespace MityaginaNP.UI.Window
         public WinStaff()
         {
             InitializeComponent();
-            ProjectFrame.Navigate(new PageProjects());
+            
+            ClassNavigate.NavigateFrame = ProjectFrame;
+            ProjectFrame.Navigate(new PageTaskList(null, null, App.DataBase.Users.Where(p => p.Login == "User").First()));
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -60,24 +62,6 @@ namespace MityaginaNP.UI.Window
             }
         }
 
-        private void btnMenu_Click(object sender, RoutedEventArgs e)
-        {
-            if (hidden)
-            {
-                sideBar.Width = 200;
-                hidden = false;
-                txtDepPost.Visibility = Visibility.Visible;
-                txtName.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                sideBar.Width = 60;
-                hidden = true;
-                txtDepPost.Visibility = Visibility.Hidden;
-                txtName.Visibility = Visibility.Hidden;
-            }
-        }
-
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
@@ -86,6 +70,38 @@ namespace MityaginaNP.UI.Window
             {
                 ClassNotification.CheckDateNotif("User");
             });
+        }
+
+        private void btnTasks_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageTaskList(null, null, null));
+        }
+
+        private void btnGanttChart_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, App.DataBase.Users.Where(p => p.Login == "User").First()));
+        }
+
+        private void btnNotifications_Click(object sender, RoutedEventArgs e)
+        {
+            if (hidden)
+            {
+
+                notificationsBar.Visibility = Visibility.Visible;
+                hidden = false;
+            }
+            else
+            {
+                notificationsBar.Visibility = Visibility.Hidden;
+                hidden = true;
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            WinAuth winAuth = new WinAuth();
+            winAuth.Show();
+            this.Close();
         }
     }
 }

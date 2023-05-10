@@ -17,7 +17,7 @@ namespace MityaginaNP.UX.Class
         TaskProject taskProject;
 
         
-        public static string connectionString = @"data source=WIN-N1PT9VUI2V5\SQLEXPRESS2014;initial catalog=MityaginaNP;integrated security=True;";
+        public static string connectionString = ClassConnect.GetSQLConnString();
         public static void CheckDateNotif(string user)
         {
             var projects = App.DataBase.TaskProjects.ToList();
@@ -26,26 +26,24 @@ namespace MityaginaNP.UX.Class
                 var TaskProject = App.DataBase.TaskProjects.ToList();
                 string sqlExpression = "INSERT INTO[dbo].[Notification] ([TypeID], [UserLogin], [NotificationDateTime], [TaskID]) VALUES (1, '" + user + "', '" + DateTime.Now.ToString() + "', '" + project.TaskID + "')";
 
-                    if (project.TaskDeadLine == DateTime.Today.AddDays(3) || project.TaskDeadLine == DateTime.Today.AddDays(1) || project.TaskDeadLine == DateTime.Today.AddDays(2) || project.TaskDeadLine == DateTime.Today)
+                if (project.TaskDeadLine == DateTime.Today.AddDays(3) || project.TaskDeadLine == DateTime.Today.AddDays(1) || project.TaskDeadLine == DateTime.Today.AddDays(2) || project.TaskDeadLine == DateTime.Today)
+                {
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using(SqlConnection con = new SqlConnection(connectionString))
+                        con.Open();
+                        SqlCommand cmd = new SqlCommand(sqlExpression, con);
+                        try
                         {
-                            con.Open();
-                            SqlCommand cmd = new SqlCommand(sqlExpression, con);
-                            try
-                            {
-                                cmd.ExecuteNonQuery();
-                            }
-                            catch (SqlException ex)
-                            {
-                            }
-                            finally
-                            {
-                                con.Close();
-                            }
+                            cmd.ExecuteNonQuery();
                         }
-
-                    
+                        catch (SqlException ex)
+                        {
+                        }
+                        finally
+                        {
+                            con.Close();
+                        }
+                    }
                 }
             }
         }
