@@ -36,6 +36,7 @@ namespace MityaginaNP.UI.Window
 
             ClassNavigate.NavigateFrame = ProjectFrame;
             ProjectFrame.Navigate(new PageStaffList(App.DataBase.Departments.Where(p => p.DepartmentID == currentUser.DepartmentID).FirstOrDefault()));
+            notificationsBar.Items.Clear();
             notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
 
         }
@@ -68,10 +69,6 @@ namespace MityaginaNP.UI.Window
             }
         }
 
-        private void btnDiagrams_Click(object sender, RoutedEventArgs e)
-        {
-            ClassNavigate.NavigateFrame.Navigate(new PageDiagrams());
-        }
 
         private void btnNotifications_Click(object sender, RoutedEventArgs e)
         {

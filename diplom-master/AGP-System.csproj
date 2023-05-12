@@ -296,14 +296,14 @@
     <Compile Include="UI\Page\PageClientList.xaml.cs">
       <DependentUpon>PageClientList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Page\PageDocs.xaml.cs">
-      <DependentUpon>PageDocs.xaml</DependentUpon>
+    <Compile Include="UI\Page\PageDocumentList.xaml.cs">
+      <DependentUpon>PageDocumentList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Page\PageGanttChart.xaml.cs">
       <DependentUpon>PageGanttChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Page\PageProjects.xaml.cs">
-      <DependentUpon>PageProjects.xaml</DependentUpon>
+    <Compile Include="UI\Page\PageProjectList.xaml.cs">
+      <DependentUpon>PageProjectList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Page\PageStaffList.xaml.cs">
       <DependentUpon>PageStaffList.xaml</DependentUpon>
@@ -385,6 +385,9 @@
     <Compile Include="UX\Entity\Role.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="UX\Entity\sysdiagram.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UX\Entity\TaskProject.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
@@ -410,7 +413,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Page\PageDocs.xaml">
+    <Page Include="UI\Page\PageDocumentList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -418,7 +421,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Page\PageProjects.xaml">
+    <Page Include="UI\Page\PageProjectList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,7 +521,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="UX\Entity\ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

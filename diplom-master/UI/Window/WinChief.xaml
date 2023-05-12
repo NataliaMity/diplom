@@ -55,7 +55,7 @@
                             <Button Style="{StaticResource menuButton}" x:Name="btnGanttChart" Click="btnGanttChart_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Kind="CalendarClock" />
-                                    <TextBlock><Run Text="График проектов" /></TextBlock>
+                                    <TextBlock><Run Text="График проектов" FontSize="15.5" /></TextBlock>
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource menuButton}" x:Name="btnGanttChartTask" Click="btnGanttChartTask_Click">

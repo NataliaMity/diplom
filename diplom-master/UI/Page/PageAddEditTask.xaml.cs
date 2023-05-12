@@ -39,9 +39,13 @@ namespace MityaginaNP.UI.Page
                 ComboDepartment.IsEnabled = false;
                 txtTaskName.IsEnabled = false;
             }
+            if(ClassAuthorization.roleUser == 1)
+            {
+                ComboWorker.IsEnabled = false;
+            }
             _curProjId = proj;
-            DateDeadLine.SelectedDate = DateTime.Today.Date;
-            DateStart.SelectedDate = DateTime.Today.Date;
+            DateDeadLine.SelectedDate = DateTime.Today;
+            DateStart.SelectedDate = DateTime.Today.AddDays(1);
             DataContext = _curProj /*_proj*/;
             ComboDepartment.ItemsSource = App.DataBase.Departments.ToList();
             ComboWorker.ItemsSource = App.DataBase.Users.ToList().Where(p => p.RoleID == 3 && p.DepartmentID == ComboDepartment.SelectedIndex + 1);

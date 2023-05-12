@@ -36,6 +36,7 @@ namespace MityaginaNP.UI.Window
                 DataContext = _selectedUser;
             }
             ClassNavigate.NavigateFrame = ProjectFrame;
+            notificationsBar.Items.Clear();
             notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
             ProjectFrame.Navigate(new PageTaskList(null, null, App.DataBase.Users.Where(p => p.Login == currentUser.Login).First()));
         }

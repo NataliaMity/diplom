@@ -27,13 +27,14 @@ namespace MityaginaNP.UX.Entity
     
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<NotificationType> NotificationTypes { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaskProject> TaskProjects { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Document> Documents { get; set; }
     }
 }

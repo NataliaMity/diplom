@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MityaginaNPModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -23,16 +23,12 @@
           <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "MityaginaNP.dbo.Document" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Document">
           <Key>
             <PropertyRef Name="DocumentID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="DocumentName" />
           </Key>
           <Property Name="DocumentID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DocumentSource" Type="varbinary(max)" />
+          <Property Name="DocumentSource" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProjectID" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="DocumentName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="TaskID" Type="int" />
@@ -73,6 +69,16 @@
           </Key>
           <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TaskProject">
           <Key>
@@ -266,25 +272,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище MityaginaNPModelContainer">
+        <EntityContainer Name="Хранилище ModelContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskProject" EntityType="Self.TaskProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Document" EntityType="Self.Document" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Document].[DocumentID] AS [DocumentID], 
-    [Document].[DocumentSource] AS [DocumentSource], 
-    [Document].[ProjectID] AS [ProjectID], 
-    [Document].[DocumentName] AS [DocumentName], 
-    [Document].[TaskID] AS [TaskID]
-    FROM [dbo].[Document] AS [Document]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Document_Project" Association="Self.FK_Document_Project">
             <End Role="Project" EntitySet="Project" />
             <End Role="Document" EntitySet="Document" />
@@ -342,7 +341,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MityaginaNPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -363,6 +362,18 @@
           <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="TaskProjects" Relationship="Self.FK_Task_Department" FromRole="Department" ToRole="TaskProject" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Department" FromRole="Department" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="Guid" Nullable="false" />
+          <Property Name="DocumentSource" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProjectID" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskID" Type="Int32" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Document_Project" FromRole="Document" ToRole="Project" />
+          <NavigationProperty Name="TaskProject" Relationship="Self.FK_Document_TaskProject" FromRole="Document" ToRole="TaskProject" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -410,6 +421,16 @@
           <Property Name="RoleName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TaskProject">
           <Key>
             <PropertyRef Name="TaskID" />
@@ -423,9 +444,9 @@
           <Property Name="TaskStart" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK_Task_Department" FromRole="TaskProject" ToRole="Department" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Document_TaskProject" FromRole="TaskProject" ToRole="Document" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_TaskProject" FromRole="TaskProject" ToRole="Notification" />
           <NavigationProperty Name="Project" Relationship="Self.FK_Task_Project" FromRole="TaskProject" ToRole="Project" />
-          <NavigationProperty Name="Documents" Relationship="Self.FK_Document_TaskProject" FromRole="TaskProject" ToRole="Document" />
           <NavigationProperty Name="User" Relationship="Self.FK_Task_User" FromRole="TaskProject" ToRole="User" />
           <NavigationProperty Name="TaskStatu" Relationship="Self.FK_TaskProject_TaskStatus" FromRole="TaskProject" ToRole="TaskStatus" />
         </EntityType>
@@ -457,20 +478,6 @@
           <NavigationProperty Name="Projects" Relationship="Self.FK_Project_User" FromRole="User" ToRole="Project" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="TaskProjects" Relationship="Self.FK_Task_User" FromRole="User" ToRole="TaskProject" />
-        </EntityType>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="DocumentName" />
-          </Key>
-          <Property Name="DocumentID" Type="Guid" Nullable="false" />
-          <Property Name="DocumentSource" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProjectID" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="DocumentName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TaskID" Type="Int32" />
-          <NavigationProperty Name="Project" Relationship="Self.FK_Document_Project" FromRole="Document" ToRole="Project" />
-          <NavigationProperty Name="TaskProject" Relationship="Self.FK_Document_TaskProject" FromRole="Document" ToRole="TaskProject" />
         </EntityType>
         <Association Name="FK_Project_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -505,6 +512,30 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_TaskProject">
+          <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskProject">
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="TaskID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -544,18 +575,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_Project">
-          <End Role="Project" Type="Self.Project" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="ProjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Project_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -592,18 +611,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_TaskProject">
-          <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="0..1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskProject">
-              <PropertyRef Name="TaskID" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="TaskID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Task_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="TaskProject" Type="Self.TaskProject" Multiplicity="*" />
@@ -631,14 +638,15 @@
         <EntityContainer Name="BDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TaskProjects" EntityType="Self.TaskProject" />
           <EntitySet Name="TaskStatus" EntityType="Self.TaskStatu" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Documents" EntityType="Self.Document" />
           <AssociationSet Name="FK_Project_Client" Association="Self.FK_Project_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Project" EntitySet="Projects" />
@@ -650,6 +658,14 @@
           <AssociationSet Name="FK_User_Department" Association="Self.FK_User_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Project" Association="Self.FK_Document_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_TaskProject" Association="Self.FK_Document_TaskProject">
+            <End Role="TaskProject" EntitySet="TaskProjects" />
+            <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Notification_NotificationType" Association="Self.FK_Notification_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationTypes" />
@@ -663,10 +679,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_Document_Project" Association="Self.FK_Document_Project">
-            <End Role="Project" EntitySet="Projects" />
-            <End Role="Document" EntitySet="Documents" />
-          </AssociationSet>
           <AssociationSet Name="FK_Project_User" Association="Self.FK_Project_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Project" EntitySet="Projects" />
@@ -678,10 +690,6 @@
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Document_TaskProject" Association="Self.FK_Document_TaskProject">
-            <End Role="TaskProject" EntitySet="TaskProjects" />
-            <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Task_User" Association="Self.FK_Task_User">
             <End Role="User" EntitySet="Users" />
@@ -697,9 +705,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище MityaginaNPModelContainer" CdmEntityContainer="BDEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="BDEntities">
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Client">
+            <EntityTypeMapping TypeName="Model.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
@@ -711,15 +719,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Department">
+            <EntityTypeMapping TypeName="Model.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="Model.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentSource" ColumnName="DocumentSource" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Notification">
+            <EntityTypeMapping TypeName="Model.Notification">
               <MappingFragment StoreEntitySet="Notification">
                 <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
@@ -730,7 +749,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NotificationTypes">
-            <EntityTypeMapping TypeName="MityaginaNPModel.NotificationType">
+            <EntityTypeMapping TypeName="Model.NotificationType">
               <MappingFragment StoreEntitySet="NotificationType">
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -738,7 +757,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Project">
+            <EntityTypeMapping TypeName="Model.Project">
               <MappingFragment StoreEntitySet="Project">
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
@@ -752,15 +771,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Role">
+            <EntityTypeMapping TypeName="Model.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaskProjects">
-            <EntityTypeMapping TypeName="MityaginaNPModel.TaskProject">
+            <EntityTypeMapping TypeName="Model.TaskProject">
               <MappingFragment StoreEntitySet="TaskProject">
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
                 <ScalarProperty Name="TaskText" ColumnName="TaskText" />
@@ -774,7 +804,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaskStatus">
-            <EntityTypeMapping TypeName="MityaginaNPModel.TaskStatu">
+            <EntityTypeMapping TypeName="Model.TaskStatu">
               <MappingFragment StoreEntitySet="TaskStatus">
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
@@ -782,7 +812,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MityaginaNPModel.User">
+            <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -795,17 +825,6 @@
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Passport" ColumnName="Passport" />
                 <ScalarProperty Name="Education" ColumnName="Education" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="MityaginaNPModel.Document">
-              <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-                <ScalarProperty Name="DocumentSource" ColumnName="DocumentSource" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
-                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

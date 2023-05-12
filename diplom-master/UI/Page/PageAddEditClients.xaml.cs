@@ -64,7 +64,6 @@ namespace MityaginaNP.UI.Page
                     App.DataBase.Clients.Remove(_client);
                 }
             }
-            
         }
 
         private void btnGoBack_Click(object sender, RoutedEventArgs e)

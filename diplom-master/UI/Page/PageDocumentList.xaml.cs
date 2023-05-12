@@ -170,15 +170,17 @@ namespace MityaginaNP.UI.Page
             fd.IsFolderPicker = true;
             if(fd.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                path = fd.FileName + "\\" + files[0].DocumentName;
+                path = fd.FileName + "\\" + files[0].FileName;
             }
             if(path != null)
             {
                 using (FileStream fs = new FileStream(path.ToString(), FileMode.OpenOrCreate))
                 {
-                    fs.Write(files[0].DocumentSource, 0, files[0].DocumentSource.Length);
+                    fs.Write(files[0].FileData, 0, files[0].FileData.Length);
 
-                    MessageBox.Show("файл скачан");
+                    MessageBox.Show("Файл успешно сохранён");
+
+                    
                 }
             }
         }
@@ -196,14 +198,23 @@ namespace MityaginaNP.UI.Page
 
             conn.Open();
             SqlCommand insert = new SqlCommand(
-              "INSERT INTO Document ([DocumentID], [DocumentName], [ProjectID]) " +
-              "VALUES (@FileId, @FileName, @Project)", conn);
+              "INSERT INTO Document ([DocumentID], [DocumentName], [ProjectID], [TaskID]) " +
+              "VALUES (@FileId, @FileName, @Project, @Task)", conn);
             insert.Parameters.Add("@FileId",
               SqlDbType.UniqueIdentifier).Value = fileId;
             insert.Parameters.Add("@FileName",
               SqlDbType.VarChar, 50).Value = fileName;
+            if(_curproj != null)
             insert.Parameters.Add("@Project",
-              SqlDbType.Int).Value = _curproj;
+              SqlDbType.Int).Value = _curproj.ProjectID;
+            if(_task != null)
+            {
+                insert.Parameters.Add("@Project",
+                SqlDbType.Int).Value = _task.ProjectID;
+                insert.Parameters.Add("@Task",
+                SqlDbType.Int).Value = _task.TaskID;
+            }
+                
             insert.ExecuteNonQuery();
 
             SqlTransaction fsTx = conn.BeginTransaction();
@@ -221,22 +232,31 @@ namespace MityaginaNP.UI.Page
             string filePath = contextReader.GetString(0);
             byte[] transactionId = (byte[])contextReader[1];
             contextReader.Close();
-
-            using (FileStream fs = File.OpenRead(path))
+            try
             {
-                using (SqlFileStream sqlFS = new SqlFileStream(filePath, transactionId, FileAccess.Write))
+                using (FileStream fs = File.OpenRead(path))
                 {
-                    byte[] buffer = new byte[1024 * 1024];
-                    int location = fs.Read(buffer, 0, buffer.Length);
-                    while (location > 0)
+                    using (SqlFileStream sqlFS = new SqlFileStream(filePath, transactionId, FileAccess.Write))
                     {
-                        sqlFS.Write(buffer, 0, location);
-                        location = fs.Read(buffer, 0, buffer.Length);
+                        byte[] buffer = new byte[1024 * 1024];
+                        int location = fs.Read(buffer, 0, buffer.Length);
+                        while (location > 0)
+                        {
+                            sqlFS.Write(buffer, 0, location);
+                            location = fs.Read(buffer, 0, buffer.Length);
+                            MessageBox.Show("Сохранение прошло успешно");
+                        }
                     }
                 }
+                fsTx.Commit();
+                conn.Close();
+                DGDocs.ItemsSource = _document;
             }
-            fsTx.Commit();
-            conn.Close();
+            catch
+            {
+                MessageBox.Show("Путь не может быть пустым. Пожалуйста, попробуйте ещё раз");
+            }
+           
         }
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
@@ -265,6 +285,21 @@ namespace MityaginaNP.UI.Page
         {
             if(ClassNavigate.NavigateFrame.CanGoBack)
             ClassNavigate.NavigateFrame.GoBack();
+        }
+
+        private void btnDeleteDocs_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var remove = DGDocs.SelectedItems.Cast<Document>().ToList();
+                App.DataBase.Documents.RemoveRange(remove);
+                App.DataBase.SaveChanges();
+                DataGridUpdate();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка удаления");
+            }
         }
     }
 }

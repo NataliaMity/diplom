@@ -13,7 +13,7 @@ namespace MityaginaNP.UX.Class
         public static string GetSQLConnString()
         {
             string sSqlServer = "MAIBOOK543\\SQLEXPRESS";
-            string sDatabase = "MityaginaNP";
+            string sDatabase = "AGP-System";
 
             string sConnection = string.Format(CultureInfo.InvariantCulture,
              "Data Source={0};Initial Catalog={1};Integrated Security=SSPI",
