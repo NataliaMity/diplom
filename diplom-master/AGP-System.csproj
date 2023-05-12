@@ -296,9 +296,6 @@
     <Compile Include="UI\Page\PageClientList.xaml.cs">
       <DependentUpon>PageClientList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Page\PageDiagrams.xaml.cs">
-      <DependentUpon>PageDiagrams.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Page\PageDocs.xaml.cs">
       <DependentUpon>PageDocs.xaml</DependentUpon>
     </Compile>
@@ -352,7 +349,6 @@
     <Compile Include="UX\Class\ClassConnect.cs" />
     <Compile Include="UX\Class\ClassNavigate.cs" />
     <Compile Include="UX\Class\ClassNotification.cs" />
-    <Compile Include="UX\Class\ClassPaging.cs" />
     <Compile Include="UX\Entity\Client.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
@@ -411,10 +407,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Page\PageClientList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Page\PageDiagrams.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,9 +510,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nGantt-master\nGantt-master\nGantt\nGantt.csproj">
+    <ProjectReference Include="..\nGantt-master\nGantt-master\nGantt\GanttChart.csproj">
       <Project>{ccc54f28-5d20-4ab3-a1a8-c62cd2da3ae7}</Project>
-      <Name>nGantt</Name>
+      <Name>GanttChart</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

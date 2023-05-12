@@ -113,5 +113,11 @@ namespace MityaginaNP.UI.Window
         {
             ClassNavigate.NavigateFrame.Navigate(new PageGanttChart(null, null, null));
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ClassNavigate.NavigateFrame.Navigate(new PageDiagrams());
+
+        }
     }
 }

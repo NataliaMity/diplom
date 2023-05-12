@@ -54,5 +54,15 @@ namespace MityaginaNP.UI.Window
             textLogin.Text = "";
             textPass.Password = "";
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

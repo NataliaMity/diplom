@@ -7,12 +7,12 @@
       mc:Ignorable="d" >
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
         <StackPanel Orientation="Horizontal"  Margin="0 10">
-            <TextBlock Width="300" Text="Название проекта" />
+            <TextBlock  Width="300" Text="Название проекта" />
             <TextBox x:Name="txtProjectName" Text="{Binding ProjectName}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"  Margin="0 10">
-            <TextBlock  Width="300" Text="Содержание проекта" />
-            <TextBox x:Name="txtProjectDescription" Text="{Binding ProjectDescription}"/>
+            <TextBlock VerticalAlignment="Center" Width="300" Text="Содержание проекта" />
+            <TextBox TextWrapping="Wrap" Height="100"  x:Name="txtProjectDescription" Text="{Binding ProjectDescription}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"  Margin="0 10">
             <TextBlock  Width="300" Text="Заказчик" />

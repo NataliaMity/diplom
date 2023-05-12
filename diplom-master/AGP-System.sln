@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MityaginaNP", "MityaginaNP.csproj", "{5782917C-5C6F-4897-A1C1-A8DFA65D3291}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGP-System", "AGP-System.csproj", "{5782917C-5C6F-4897-A1C1-A8DFA65D3291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nGantt", "..\nGantt-master\nGantt-master\nGantt\nGantt.csproj", "{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanttChart", "..\nGantt-master\nGantt-master\nGantt\GanttChart.csproj", "{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,8 +10,8 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
         <StackPanel Orientation="Horizontal"  Margin="0 10">
-            <TextBlock Width="300" Text="Содержание задачи" />
-            <TextBox HorizontalAlignment="Left" x:Name="txtTaskName" Text="{Binding TaskText}"/>
+            <TextBlock VerticalAlignment="Center" Width="300" Text="Содержание задачи" />
+            <TextBox TextWrapping="Wrap" Height="100"  HorizontalAlignment="Left" x:Name="txtTaskName" Text="{Binding TaskText}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"  Margin="0 10">
             <TextBlock Width="300" Text="Наименование отдела" />

@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local1="clr-namespace:MityaginaNP.UI.UserControl"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
-        AllowsTransparency="False" Background="Transparent" IsVisibleChanged="Window_IsVisibleChanged">
+        Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent" IsVisibleChanged="Window_IsVisibleChanged">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />

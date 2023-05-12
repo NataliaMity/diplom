@@ -4,7 +4,7 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local1="clr-namespace:MityaginaNP.UI.UserControl"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="MityaginaNP.UI.Window.WinGIP"
-        Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="Transparent" >
+        Height="720" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"  Background="Transparent" >
 
     <Border Background="White" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid>
@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <!--Меню-->
-                <Border HorizontalAlignment="Left" Grid.Row="1" Background="{StaticResource ColorBlue}" CornerRadius="0 50 0 30" Name="sideBar">
+                <Border HorizontalAlignment="Left" Grid.Row="1" Background="{StaticResource ColorBlue}" CornerRadius="30 50 0 30" Name="sideBar">
                     <DockPanel>
                         <TextBlock Name="txtDepPost" Text="{Binding Role.RoleName}" Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
                         <TextBlock Name="txtName" Foreground="White" FontSize="18" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"><Run Text="{Binding LastName}" /> <Run Text="{Binding FirstName}" /></TextBlock>
@@ -46,6 +46,7 @@
                                     <TextBlock Text="Общий график"/>
                                 </StackPanel>
                             </Button>
+                            
 
                         </StackPanel>
 

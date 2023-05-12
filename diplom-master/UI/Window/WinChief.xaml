@@ -4,8 +4,8 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local1="clr-namespace:MityaginaNP.UI.UserControl"
         
-        Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="Transparent">
-        <!--AllowsTransparency="True"--> 
+        Height="720" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent"
+        AllowsTransparency="True" >
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
