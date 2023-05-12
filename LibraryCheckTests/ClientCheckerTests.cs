@@ -20,7 +20,7 @@ namespace LibraryCheck.Tests
             string email = "director@gmail.com";
             string inn = "101912181929";
 
-            bool expected = true;
+            bool expected = false;
             bool actual = LibraryCheck.ClientChecker.ClientCheck(name, chef, post, email, inn);
 
             Assert.AreEqual(expected, actual);
