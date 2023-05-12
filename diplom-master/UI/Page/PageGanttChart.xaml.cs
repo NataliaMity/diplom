@@ -139,15 +139,26 @@ namespace MityaginaNP.UI.Page
                 ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
                 ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
 
-                var currentTasks = App.DataBase.TaskProjects.ToList();
+                var currentTasks = App.DataBase.TaskProjects.ToList().Where(p => p.DepartmentID == curDep.DepartmentID).ToList();
                 var currentProjects = App.DataBase.Projects.ToList();
                 try
                 {
                     var rowgroup1 = ganttControl1.CreateGanttRowGroup("Текущие");
                     foreach (var task in currentTasks)
                     {
-                        var row = ganttControl1.CreateGanttRow(rowgroup1, task.User.LastName);
-                        ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
+                        if (task.UserLogin == null)
+                        {
+                            var row = ganttControl1.CreateGanttRow(rowgroup1, "Нет исполнителя");
+                            ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
+
+                        }
+                        else
+                        {
+                            var row = ganttControl1.CreateGanttRow(rowgroup1, task.User.LastName);
+                            ganttControl1.AddGanttTask(row, new GanttTask() { Start = (DateTime)task.TaskStart, End = (DateTime)task.TaskDeadLine, Name = task.TaskText, TaskProgressVisibility = Visibility.Collapsed });
+
+                        }
+                        
                     }
                 }
                 catch
@@ -164,7 +175,7 @@ namespace MityaginaNP.UI.Page
                 ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
                 ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
 
-                var currentTasks = App.DataBase.TaskProjects.ToList().Where(p => p.UserLogin == curUser.Login).ToList();
+                var currentTasks = App.DataBase.TaskProjects.ToList().Where(p => p.UserLogin == curUser.Login && p.StatusId != 4).ToList();
                 var currentProjects = App.DataBase.Projects.ToList();
                 try
                 {

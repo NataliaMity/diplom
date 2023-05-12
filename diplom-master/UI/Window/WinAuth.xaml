@@ -11,6 +11,9 @@
     </Window.Resources>
     <Border Background="White" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid >
+            <Button x:Name="btn_Close" Click="btn_Close_Click" Margin="5" Style="{StaticResource ucButton}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Icon:Material Kind="Close" />
+            </Button>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="Войдите в систему" HorizontalAlignment="Center" FontSize="25" Foreground="{StaticResource ColorDeepBlue}" />
                 <Grid Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -20,8 +23,8 @@
                 </Grid>
                 <Grid Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource ColorBlue}" 
-                               IsHitTestVisible="False" Panel.ZIndex="1" Visibility="{Binding ElementName=textPass, Path=Password.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Пароль"/></TextBlock>
-                    <PasswordBox Name="textPass"/>
+                               IsHitTestVisible="False" Panel.ZIndex="1" Name="pass" Visibility="{Binding ElementName=textPass, Path=PasswordChar.IsEmpty,Converter={StaticResource BoolToVis}}"><Run Text="Пароль"/></TextBlock>
+                    <PasswordBox Name="textPass" PasswordChanged="textPass_PasswordChanged"/>
                 </Grid>
                 <Button x:Name="btn_Login" Content="Войти" Click="btn_Login_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"  />
                 <Button x:Name="btn_Clear" Content="Очистить" Click="btn_Clear_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}" Margin="0 10 0 0"/>

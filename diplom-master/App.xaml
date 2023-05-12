@@ -108,7 +108,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
-                                BorderThickness="1" BorderBrush="#e0e6ed">
+                                BorderThickness="1.5" BorderBrush="#e0e6ed">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" 
                                           VerticalScrollBarVisibility="Hidden"/>
                         </Border>
@@ -311,7 +311,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="PasswordBox">
                         <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
-                                BorderThickness="1" BorderBrush="#e0e6ed">
+                                BorderThickness="1.5" BorderBrush="#e0e6ed">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" 
                                           VerticalScrollBarVisibility="Hidden"/>
                         </Border>
@@ -361,8 +361,9 @@
             <Setter Property="Margin" Value="5" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Height" Value="35" />
-            <Setter Property="Width" Value="500" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Width" Value="500" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -424,7 +425,7 @@
         </Style>
 
         <Style x:Key="tbox_TextPlaceholder" TargetType="TextBox">
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="Height" Value="35" />
             <Setter Property="Width" Value="300" />
             <Setter Property="Background" Value="White" />

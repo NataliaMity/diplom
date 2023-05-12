@@ -22,9 +22,10 @@ namespace MityaginaNP.UX.Entity
             Project1 = project;
             Task = task;
         }
+
         public Document()
         {
-            
+
         }
 
         public System.Guid DocumentID { get; set; }

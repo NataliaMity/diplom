@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MityaginaNP.UI.UserControl"
              mc:Ignorable="d" 
-              Width="200">
-    <StackPanel Orientation="Vertical">
+              Width="190" Background="White">
+    <StackPanel Orientation="Vertical" Margin="5 0">
         <TextBlock Margin="0" FontSize="12" TextWrapping="Wrap">
             <Run Text="Системное оповещение для " />
             <Run Text="{Binding User.LastName}" />!

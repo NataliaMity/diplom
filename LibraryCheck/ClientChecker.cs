@@ -10,18 +10,20 @@ namespace LibraryCheck
 {
     public class ClientChecker
     {
-        public static bool ClientCheck(string ClientName, string ClientChef, string ClientChefPost, string ClientEmail, string ClientINN)
+        public static bool ClientCheck(string ClientName, string ClientChef, string ClientChefPost, 
+            string ClientEmail, string ClientINN)
         {
             Regex regexNames = new Regex(@"^[А-Яа-я].*");
             Regex regexInts = new Regex(@"#^[0-9]+$#");
-            Regex regexINN = new Regex(@"^[0-9]{10}|[0-9]{12}$");
+            Regex regexINN = new Regex(@"^\d{10}$");
             Regex regexEmail = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
 
-            if (string.IsNullOrEmpty(ClientName) || string.IsNullOrEmpty(ClientChef) || string.IsNullOrEmpty(ClientChefPost) || string.IsNullOrEmpty(ClientEmail) || string.IsNullOrEmpty(ClientINN))
+            if (string.IsNullOrEmpty(ClientName) || string.IsNullOrEmpty(ClientChef) 
+                || string.IsNullOrEmpty(ClientChefPost) || string.IsNullOrEmpty(ClientEmail) 
+                || string.IsNullOrEmpty(ClientINN))
             {
                 return false;
             }
-
             if (regexNames.IsMatch(ClientChef) != true || regexNames.IsMatch(ClientChefPost) != true)
             {
                 return false;
@@ -32,7 +34,6 @@ namespace LibraryCheck
                 return false;
             if (regexEmail.IsMatch(ClientEmail) != true)
                 return false;
-
             return true;
         }
     }

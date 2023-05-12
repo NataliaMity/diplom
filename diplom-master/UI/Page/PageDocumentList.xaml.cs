@@ -214,7 +214,9 @@ namespace MityaginaNP.UI.Page
                 insert.Parameters.Add("@Task",
                 SqlDbType.Int).Value = _task.TaskID;
             }
-                
+            else
+                insert.Parameters.Add("@Task",
+                SqlDbType.Int).Value = 0;
             insert.ExecuteNonQuery();
 
             SqlTransaction fsTx = conn.BeginTransaction();
@@ -295,6 +297,7 @@ namespace MityaginaNP.UI.Page
                 App.DataBase.Documents.RemoveRange(remove);
                 App.DataBase.SaveChanges();
                 DataGridUpdate();
+                MessageBox.Show("Успешно удалено!");
             }
             catch
             {

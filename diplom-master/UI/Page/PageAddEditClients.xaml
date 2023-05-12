@@ -8,6 +8,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
+            <TextBlock Text="Информация о клиенте:" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" />
             <StackPanel Orientation="Horizontal" Margin="0 10">
                 <TextBlock Width="300" Text="Наименование организации: " />
                 <TextBox x:Name="txtNameClient" Text="{Binding ClientName}"/>
@@ -23,6 +24,10 @@
             <StackPanel Orientation="Horizontal" Margin="0 10">
                 <TextBlock Width="300" Text="Электронная почта: " />
                 <TextBox x:Name="txtEmailClient" Text="{Binding ClientMail}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10">
+                <TextBlock Width="300" Text="ИНН: " />
+                <TextBox x:Name="txtINN" Text="{Binding ClientINN}"/>
             </StackPanel>
             <Button x:Name="btnSaveClient" Content="Сохранить" Click="btnSaveClient_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>
             <Button x:Name="btnGoBack" Margin="5" Content="Назад" Click="btnGoBack_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}"/>

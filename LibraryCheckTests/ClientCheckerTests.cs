@@ -62,8 +62,8 @@ namespace LibraryCheck.Tests
             string name = "ООО Оператор";
             string chef = "Оленин Михаил Петрович";
             string post = "Директор";
-            string email = "director @ gmail.com";
-            string inn = "10191218192";
+            string email = "director@gmail.com";
+            string inn = "105";
 
             bool expected = false;
             bool actual = LibraryCheck.ClientChecker.ClientCheck(name, chef, post, email, inn);
@@ -89,11 +89,11 @@ namespace LibraryCheck.Tests
         [TestMethod]
         public void Check_EmptySpaces_False()
         {
-            string name = " ";
-            string chef = " ";
-            string post = " ";
-            string email = " ";
-            string inn = " ";
+            string name = "";
+            string chef = "";
+            string post = "";
+            string email = "";
+            string inn = "";
 
             bool expected = false;
             bool actual = LibraryCheck.ClientChecker.ClientCheck(name, chef, post, email, inn);

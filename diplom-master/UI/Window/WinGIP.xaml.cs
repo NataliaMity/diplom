@@ -90,6 +90,7 @@ namespace MityaginaNP.UI.Window
 
         private void btnNotifications_Click(object sender, RoutedEventArgs e)
         {
+            notificationsBar.ItemsSource = App.DataBase.Notifications.ToList().Where(p => p.UserLogin == currentUser.Login);
             if (hidden)
             {
                

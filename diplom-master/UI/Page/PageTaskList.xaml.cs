@@ -30,7 +30,7 @@ namespace MityaginaNP.UI.Page
             if (selectedProject != null)
             {
                 _selectedProject = selectedProject;
-                //DataContext = selectedProject;
+                DataContext = selectedProject;
                 _task = App.DataBase.TaskProjects.Where(p => p.ProjectID == _selectedProject.ProjectID).ToList();
                 
             }
@@ -39,14 +39,16 @@ namespace MityaginaNP.UI.Page
                 _selectedDep = selectedDep;
                 DataContext = selectedDep;
                 _task = App.DataBase.TaskProjects.Where(p => p.DepartmentID == _selectedDep.DepartmentID && p.StatusId == 2 || p.StatusId == 3 || p.StatusId == 4).ToList();
+                btnAddTask.Visibility = Visibility.Collapsed;
 
             }
             if (selectedUser != null)
             {
                 _selectedUser = selectedUser;
                 DataContext = selectedUser;
-                _task = App.DataBase.TaskProjects.Where(p => p.UserLogin == _selectedUser.Login && p.StatusId == 2 || p.StatusId == 3 || p.StatusId == 4).ToList();
-
+                _task = App.DataBase.TaskProjects.Where(p => p.UserLogin == _selectedUser.Login && p.DepartmentID == _selectedUser.DepartmentID && p.StatusId == 2 || p.StatusId == 3 || p.StatusId == 4).ToList();
+                btnAddTask.Visibility = Visibility.Collapsed;
+                btnGoBack.Visibility = Visibility.Collapsed;
             }
             DGTask.ItemsSource = _task;
         }

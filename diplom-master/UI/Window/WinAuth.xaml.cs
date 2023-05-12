@@ -35,18 +35,20 @@ namespace MityaginaNP.UI.Window
                 winGIP.Show();
                 this.Close();
             }
-            if (roleId == 2)
+            else if (roleId == 2)
             {
                 WinChief winChief = new WinChief(App.DataBase.Users.Where(p => p.Login == textLogin.Text).First());
                 winChief.Show();
                 this.Close();
             }
-            if (roleId == 3)
+            else if (roleId == 3)
             {
                 WinStaff winStaff = new WinStaff(App.DataBase.Users.Where(p => p.Login == textLogin.Text).First());
                 winStaff.Show();
                 this.Close();
             }
+            else
+                MessageBox.Show("Неверные данные для входа!");
         }
 
         private void btn_Clear_Click(object sender, RoutedEventArgs e)
@@ -63,6 +65,19 @@ namespace MityaginaNP.UI.Window
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void textPass_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (textPass.Password.Length != 0)
+                pass.Visibility = Visibility.Hidden;
+            else
+                pass.Visibility = Visibility.Visible;
         }
     }
 }

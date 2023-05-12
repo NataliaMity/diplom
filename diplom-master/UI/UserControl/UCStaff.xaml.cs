@@ -35,7 +35,14 @@ namespace MityaginaNP.UI.UserControl
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            txtCount.Text = App.DataBase.TaskProjects.ToList().Where(p => p.User.LastName == txtName.Text).Count().ToString();
+
+            //var users = App.DataBase.Users.ToList().Where(p => p.LastName == txtName.Text).ToList();
+            ////
+            //foreach (var user in users)
+            //{
+            //if (txtName.Text.Length != 0)
+                txtCount.Text = App.DataBase.TaskProjects.ToList().Where(p => p.User != null && p.User.LastName == txtName.Text).Count().ToString();
+            //}
         }
     }
 }

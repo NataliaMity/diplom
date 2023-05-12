@@ -24,9 +24,11 @@ namespace MityaginaNP.UX.Class
             foreach (var project in projects)
             {
                 var TaskProject = App.DataBase.TaskProjects.ToList();
-                string sqlExpression = "INSERT INTO[dbo].[Notification] ([TypeID], [UserLogin], [NotificationDateTime], [TaskID]) VALUES (1, '" + user + "', '" + DateTime.Now.ToString() + "', '" + project.TaskID + "')";
+                string sqlExpression = "INSERT INTO[dbo].[Notification] ([TypeID], [UserLogin], [NotificationDateTime], " +
+                    "[TaskID]) VALUES (1, '" + user + "', '" + DateTime.Now.ToString() + "', '" + project.TaskID + "')";
 
-                if (project.TaskDeadLine == DateTime.Today.AddDays(3) || project.TaskDeadLine == DateTime.Today.AddDays(1) || project.TaskDeadLine == DateTime.Today.AddDays(2) || project.TaskDeadLine == DateTime.Today)
+                if (project.TaskDeadLine == DateTime.Today.AddDays(3) || project.TaskDeadLine == DateTime.Today.AddDays(1) 
+                    || project.TaskDeadLine == DateTime.Today.AddDays(2) || project.TaskDeadLine == DateTime.Today)
                 {
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
@@ -55,7 +57,7 @@ namespace MityaginaNP.UX.Class
                 var TaskProject = App.DataBase.TaskProjects.ToList();
                 string sqlExpression = "INSERT INTO[dbo].[Notification] ([TypeID], [UserLogin], [NotificationDateTime], [TaskID]) VALUES (4, '" + user + "', '" + DateTime.Now.ToString() + "', '" + project.TaskID + "')";
 
-                if (project.TaskDeadLine < DateTime.Today)
+                if (project.TaskDeadLine > DateTime.Today)
                 {
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
@@ -76,9 +78,9 @@ namespace MityaginaNP.UX.Class
                 }
             }
         }
-        public static void CheckNewTaskNotif(string user)
+        public static void CheckNewTaskNotif(string user, int taskId)
         {
-            var projects = App.DataBase.TaskProjects.ToList();
+            var projects = App.DataBase.TaskProjects.ToList().Where(p => p.TaskID == taskId);
             foreach (var project in projects)
             {
                 var TaskProject = App.DataBase.TaskProjects.ToList();
@@ -102,14 +104,12 @@ namespace MityaginaNP.UX.Class
                                 con.Close();
                             }
                         }
-
-                    
                 }
             }
         }
-        public static void CheckNewStatusNotif(string user)
+        public static void CheckNewStatusNotif(string user, int taskId)
         {
-            var projects = App.DataBase.TaskProjects.ToList();
+            var projects = App.DataBase.TaskProjects.ToList().Where(p => p.TaskID == taskId);
             foreach (var project in projects)
             {
                 var TaskProject = App.DataBase.TaskProjects.ToList();
@@ -133,8 +133,6 @@ namespace MityaginaNP.UX.Class
                             con.Close();
                         }
                     }
-
-
                 //}
             }
         }

@@ -9,6 +9,7 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+        <TextBlock Text="Информация о задаче:" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" />
         <StackPanel Orientation="Horizontal"  Margin="0 10">
             <TextBlock VerticalAlignment="Center" Width="300" Text="Содержание задачи" />
             <TextBox TextWrapping="Wrap" Height="100"  HorizontalAlignment="Left" x:Name="txtTaskName" Text="{Binding TaskText}"/>

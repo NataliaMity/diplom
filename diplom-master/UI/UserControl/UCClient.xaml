@@ -5,7 +5,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
 
     <StackPanel Orientation="Horizontal">
-        <StackPanel Orientation="Vertical" Margin="0 5 20 5">
+        <StackPanel Orientation="Vertical" Margin="0 5 20 5" Width="600">
             <TextBlock><Run Text="Название организации:" /> <Run Text="{Binding ClientName}" /></TextBlock>
             <TextBlock><Run Text="Руководитель (должность):" /> <Run Text="{Binding ClientDirector}"/>(<Run Text="{Binding ClientDirectorPost}"/>)</TextBlock>
             <TextBlock><Run Text="Почта для связи:" /> <Run  Text="{Binding ClientMail}"/></TextBlock>

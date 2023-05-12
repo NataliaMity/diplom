@@ -12,8 +12,10 @@
             <TextBlock ><Run Text="Дата выдачи:" /> <Run Text="{Binding TaskStart}" /></TextBlock>
             <TextBlock ><Run Text="Дата сдачи:" /> <Run Text="{Binding TaskDeadLine}" /></TextBlock>
             <TextBlock Visibility="Collapsed" Text="{Binding ProjectID}" Name="txtProjNum" />
+            <TextBlock Visibility="Collapsed" Text="{Binding Project.UserLogin}" Name="txtGIP" />
             <TextBlock Visibility="Collapsed" Text="{Binding TaskID}" Name="txtTaskNum" />
             <TextBlock Visibility="Collapsed" Text="{Binding StatusId}" Name="txtStatNum" />
+            <TextBlock Visibility="Collapsed" Text="{Binding DepartmentID}" Name="txtDep" />
 
             <TextBlock Visibility="Collapsed" Text="{Binding User.Login}"  Name="user" />
             <TextBlock x:Name="txtUser" ><Run Text="Исполнитель:" /> <Run Text="{Binding User.LastName}" /></TextBlock>
@@ -33,6 +35,12 @@
                     <TextBlock Text="Редактировать" FontSize="13" />
                 </StackPanel>
                 </Button>
-            </StackPanel>
+            <Button Margin="10 3" Style="{StaticResource addButton}" Name="btnDelete" Click="btnDelete_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="TrashCan" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock Text="Удалить" FontSize="13" Width="100" TextAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </StackPanel>
 </UserControl>

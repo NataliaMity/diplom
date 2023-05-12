@@ -37,13 +37,34 @@ namespace MityaginaNP.UI.Page
 
         private void btnSaveClient_Click(object sender, RoutedEventArgs e)
         {
+            StringBuilder errors = new StringBuilder();
+            if (txtDirectorClient.Text.Length == 0)
+                errors.AppendLine("Необходимо указать руководителя организации");
+            if (txtDirectorPostClient.Text.Length == 0)
+                errors.AppendLine("Необходимо указать должность руководителя");
+            if (txtEmailClient.Text.Length == 0)
+                errors.AppendLine("Необходимо указать электронную почту заказчика");
+            if (txtNameClient.Text.Length == 0)
+                errors.AppendLine("Необходимо указать название организации");
+            if (txtINN.Text.Length != 10 || txtINN.Text.Any(Char.IsLetter))
+                errors.AppendLine("ИНН должен быть составлен из 10 цифр");
+
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString());
+                return;
+            }
             if (_clientId == 0)
             {
                 try
                 {
-                    App.DataBase.Clients.Add(_client);
-                    App.DataBase.SaveChanges();
-                    MessageBox.Show("Ok...");
+                    if(errors.Length == 0)
+                    {
+                        App.DataBase.Clients.Add(_client);
+                        App.DataBase.SaveChanges();
+                        MessageBox.Show("Успешно сохранено!");
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -55,8 +76,11 @@ namespace MityaginaNP.UI.Page
             {
                 try
                 {
-                    App.DataBase.SaveChanges();
-                    MessageBox.Show("Ok...");
+                    if (errors.Length == 0)
+                    {
+                        App.DataBase.SaveChanges();
+                        MessageBox.Show("Успешно сохранено!");
+                    }
                 }
                 catch (Exception ex)
                 {
